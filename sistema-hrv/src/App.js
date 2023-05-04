@@ -10,3 +10,6 @@ function App() {
 }
 
 export default App;
+/*
+MODIFICAR firebase-config con la ruta de la BD que usaremos
+*/

@@ -35,8 +35,5 @@
 }
 .inicio-box-title{
     align-items: center;
-    min-height: 80vh;
-    max-width: 800px;
-    margin: 0 auto;
-    gap: 2rem;
+
 }

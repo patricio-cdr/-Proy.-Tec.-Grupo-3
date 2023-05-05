@@ -1,42 +1,34 @@
 import React from "react";
 import logo from "./assets/logo.png";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
-    createUserWithEmailAndPassword,
-    onAuthStateChanged,
     signInWithEmailAndPassword,
-    signOut,
 } from "firebase/auth";
 import "./Login.css";
 import { auth } from "./firebase-config";
 
-function Login() {
+
+
+const Login = (props) => {
+
     //Variables para registrar e iniciar sesion
-    const [registerEmail, setRegisterEmail] = useState("");
-    const [registerPassword, setRegisterPassword] = useState("");
+    //const [registerEmail, setRegisterEmail] = useState("");
+    //const [registerPassword, setRegisterPassword] = useState("");
     const [loginEmail, setLoginEmail] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
-    const [user, setUser] = useState({});
 
-    useEffect(() => {
-        onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser);
-        });
-    
-    }, [])
-
-    const register = async () => {
-        try {
-            const user = await createUserWithEmailAndPassword(
-                auth,
-                registerEmail,
-                registerPassword
-            );
-            //window.open("registrado", "_blank");
-        } catch (error) {
-            console.log(error.message);
-        }
-    };
+    // const register = async () => {
+    //     try {
+    //         const user = await createUserWithEmailAndPassword(
+    //             auth,
+    //             registerEmail,
+    //             registerPassword
+    //         );
+    //         //window.open("registrado", "_blank");
+    //     } catch (error) {
+    //         console.log(error.message);
+    //     }
+    // };
 
     const login = async () => {
         try {
@@ -44,21 +36,14 @@ function Login() {
                 auth,
                 loginEmail,
                 loginPassword
-            );
-            //Cambiar esto para que cuando el usuario se logue pase a la siguiente pagina
-            window.open("logueado", "_blank");
+            ).then((fbUser) => {
+                props.setUsuario(fbUser);
+            });
+            //navigate("/Inicio");
         } catch (error) {
             console.log(error.message);
         }
-    };
-
-    //Revisar -> Cerrar sesion
-    
-    const logout = async () => {
-        await signOut(auth);
-    };
-    
-
+    };    
 
     return (
         <section id="login" className="container mx-auto">
@@ -94,8 +79,6 @@ function Login() {
                             >
                                 LOGIN
                             </button>
-                            <h4>Usuario logueado</h4>
-                            {user ? user.email : "Not Logged In"}
                         </div>
                     </div>
                 </div>

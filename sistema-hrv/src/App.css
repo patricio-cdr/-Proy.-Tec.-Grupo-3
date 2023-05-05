@@ -11,6 +11,12 @@ h2{
   font-weight: 800;
   font-size: 50px;
 }
+.t-b{
+  font-family: 'Nunito', sans-serif;
+color: #52bcc9;
+font-weight: 800;
+font-size: 66px;
+}
 
 .button1{
     background-color: #52bcc9;
@@ -21,6 +27,61 @@ h2{
     font-family: 'Nunito', sans-serif;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
+}
+.btn-1{
+    background-color: #52bcc9;
+    padding: 0.375rem 2rem;
+    color: #F8F3E9;
+    border: none;
+    font-size: 20px;
+    font-family: 'Nunito', sans-serif;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    display: inline-block;
+  text-decoration: none;
+}
+.btn-1:hover{ 
+    color: #F8F3E9;
+    background-color: #00000052;
+    transition: 0.2s ease-in-out;
+    
+}
+.btn-logout{
+    background-color: #52bcc9;
+    padding: 0.375rem 2rem;
+    color: #F8F3E9;
+    border: none;
+    font-size: 25px;
+    font-family: 'Nunito', sans-serif;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+}
+
+.btn-buscar-p{
+  background-color: #52bcc9;
+  padding: 1rem 2rem;
+  color: #F8F3E9;
+  border: none;
+  font-size: 28px;
+  font-family: 'Nunito', sans-serif;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 18px;
+}
+.btn-hrv{
+  background-color: #F8F3E9;
+  padding: 1rem 2rem;
+  color: #52bcc9;
+  border: 3px solid #52bcc9;
+  font-size: 28px;
+  font-family: 'Nunito', sans-serif;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 18px;
+}
+
+.btn-hrv:hover{
+  background-color: #52bcc9;
+  color: #F8F3E9;
+  transition: 0.2s ease-in-out;
 }
 
 .button1:hover{

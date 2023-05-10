@@ -16,6 +16,7 @@ const Login = (props) => {
     //const [registerPassword, setRegisterPassword] = useState("");
     const [loginEmail, setLoginEmail] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
+    const [error, setError] = useState('');
 
     // const register = async () => {
     //     try {
@@ -29,19 +30,48 @@ const Login = (props) => {
     //         console.log(error.message);
     //     }
     // };
+    const validateForm = () => {
+        if (!loginEmail || !loginPassword) {
+            setError('Por favor, complete todos los campos.');
+            setTimeout(() => {
+                setError('');
+            }, 2000);
+            return false
+        }
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailRegex.test(loginEmail)) {
+            setError('Por favor, ingrese un email válido.');
+            setTimeout(() => {
+                setError('');
+            }, 2000);
+            return false
+        }
+        
+        // Completar demas lógica de validación de email y contraseña aquí
+
+        return true;
+    };
 
     const login = async () => {
+        setError('');
         try {
-            const user = await signInWithEmailAndPassword(
-                auth,
-                loginEmail,
-                loginPassword
-            ).then((fbUser) => {
-                props.setUsuario(fbUser);
-            });
-            //navigate("/Inicio");
+            if (validateForm()) {
+                // Realiza la lógica de inicio de sesión aquí
+                const user = await signInWithEmailAndPassword(
+                    auth,
+                    loginEmail,
+                    loginPassword
+                ).then((fbUser) => {
+                    props.setUsuario(fbUser);
+                });
+                //navigate("/Inicio");
+                console.log('Inicio de sesión exitoso');
+            }
+           
         } catch (error) {
             console.log(error.message);
+            console.log("consulte a sistemas");
         }
     };    
 
@@ -72,6 +102,7 @@ const Login = (props) => {
                                 setLoginPassword(event.target.value);
                             }}
                         />
+                        {error && <p className="mt-3 text-danger">{error}</p>}
                         <div className="login-button">
                             <button
                                 className="button1 d-flex mx-auto"

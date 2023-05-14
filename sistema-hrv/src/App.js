@@ -4,6 +4,8 @@ import Inicio from './Inicio'
 import React from 'react';
 import { auth } from "./firebase-config";
 import { useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
+import Register from './Register';
 
 function App() {
 
@@ -18,7 +20,13 @@ function App() {
 
     return (
         <>
-            {usuario ? <Inicio /> : <Login setUsuario={setUsuario} />}
+            <main id="main-content">
+                <Routes>
+                    <Route path="/" element={usuario ? <Inicio /> :
+                        <Login setUsuario={setUsuario} />} />
+                    <Route path="/register" element={<Register />} />
+                </Routes>
+            </main>
         </>
     );
 }

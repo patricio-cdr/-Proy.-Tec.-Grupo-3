@@ -6,8 +6,7 @@ import {
 } from "firebase/auth";
 import "./Login.css";
 import { auth } from "./firebase-config";
-
-
+import { Link } from 'react-router-dom'
 
 const Login = (props) => {
 
@@ -43,16 +42,16 @@ const Login = (props) => {
         } catch (error) {
             console.log(error.message);
         }
-    };    
+    };
 
     return (
         <section id="login" className="container mx-auto">
             <div className="pt-5 pb-5">
-                <h2 className="text-center">CLINICA</h2>
-                <div className="form-login mx-auto">
-                    <div className="mt-5 position-relative">
+                <div className="form mx-auto">
+                    <h2 className="position-relative text-center title">CLINICA</h2>
+                    <div className="mt-4 position-relative form-content">
                         <div className="logo position-absolute top-0 start-50 translate-middle">
-                            <img src={logo} alt="" className="img-fluid w-100 h-100" />
+                            <img src={logo} alt="" className="img-fluid w-100 h-100 logo-img" />
                         </div>
                         <input
                             type="email"
@@ -63,7 +62,7 @@ const Login = (props) => {
                                 setLoginEmail(event.target.value);
                             }}
                         />
-                        <br/>
+                        <br />
                         <input
                             type="password"
                             placeholder="Ingrese su contraseña"
@@ -72,13 +71,22 @@ const Login = (props) => {
                                 setLoginPassword(event.target.value);
                             }}
                         />
-                        <div className="login-button">
-                            <button
-                                className="button1 d-flex mx-auto"
-                                onClick={login}
-                            >
-                                LOGIN
-                            </button>
+                        <div className="row-display buttons">
+                            <div className="register-button">
+                                <Link to="/register"><button id="register-button"
+                                    className="button2"
+                                >
+                                    REGISTRAR
+                                </button></Link>
+                            </div>
+                            <div className="login-button">
+                                <button id="login-button"
+                                    className="button1"
+                                    onClick={login}
+                                >
+                                    LOGIN
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

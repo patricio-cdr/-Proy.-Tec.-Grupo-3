@@ -1,39 +1,6 @@
-.logo{
-    width: 130px;
-    height: 130px;
-    border-radius: 50%;
-    background-color: #F8F3E9;
-}
-
-#login .text-center{
-    padding-bottom: 1rem;
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
-
-#login .form-login {
-    max-width: 350px;
-}
-
-#login .form-login .logo img{
-    padding: 1rem 1rem;
-}
-
-#login .form-login .login-button {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-}
-
-#login .form-login .mt-5{
-    background-color: #c8c1b87a;
-    padding: 25% 10% 0;
-    border-radius: 7%;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);;
-}
-
 #inicio-box{
     min-height: 100vh;
 }
 .inicio-box-title{
     align-items: center;
-
 }

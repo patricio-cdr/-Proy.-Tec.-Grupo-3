@@ -1,0 +1,12 @@
+#register .pt-5 .form .row-display div{
+    margin-right: 10px;
+}
+
+#register .pt-5 .form .d-flex .row-display{
+    margin: 0 10px 0 10px;
+}
+
+#register{
+    color: #0000007c;
+    font-weight: 500;
+}

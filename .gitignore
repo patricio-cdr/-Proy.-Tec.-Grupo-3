@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
+/npm install @fortawesome/fontawesome-free
 
 # testing
 /coverage

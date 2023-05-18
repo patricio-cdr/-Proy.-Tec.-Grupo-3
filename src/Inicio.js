@@ -3,6 +3,7 @@ import React from 'react'
 import logo from './assets/logo.png';
 import './Login.css';
 import { auth } from './firebase-config';
+import { Link } from "react-router-dom";
 
 function Inicio() {
 
@@ -16,7 +17,7 @@ function Inicio() {
             <button onClick={signOut} type='button' id="log-out" className='btn-logout'>Cerrar sesion</button>
         </div>
         <div className="d-flex inicio-box-title">
-            <div className=''>
+            <div className='logo-img-inicio'>
                 <img src={logo} alt="" className='img-fluid' />
             </div>
             <div>
@@ -24,8 +25,8 @@ function Inicio() {
             </div>
         </div>
         <div className=' d-flex justify-content-between'>  
-            <button type='button' id="crear-hrv" className='btn-hrv'>CREAR HRV</button>
-            <button type='button' id="buscar-paciente" className='btn-buscar-p'>BUSCAR PACIENTE</button>
+          <Link to="/hrv"><button type='button' id="crear-hrv" className='btn-hrv'>CREAR HRV</button></Link>
+          <Link to="/buscador"><button type='button' id="buscar-paciente" className='btn-buscar-p'>BUSCAR PACIENTE</button></Link>
         </div>
     </section>
   )

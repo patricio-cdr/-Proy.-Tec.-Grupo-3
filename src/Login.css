@@ -3,4 +3,9 @@
 }
 .inicio-box-title{
     align-items: center;
+    height: 70vh;
+    justify-content: space-between;
+}
+.logo-img-inicio{
+    width: 45%;
 }

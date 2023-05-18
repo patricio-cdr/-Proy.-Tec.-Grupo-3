@@ -1,0 +1,56 @@
+{
+    "paciente": {
+      "dni": 76523424,
+      "nombre": "Juan Vera Montes",
+      "sexo": "Maculino",
+      "Edad":  25,
+      "telefono": 987866745,
+      "visitas": [
+        {
+          "visita": "id",
+          "examenes": [
+            {
+              "triaje": {
+                "h.ing": "date",
+                "h.sal": "date",
+                "atendidoPor": "id",
+                "completado": false
+              }
+            },
+            {
+              "oftalmo": {
+                "h.ing": "date",
+                "h.sal": "date",
+                "atendidoPor": "id",
+                "completado": false
+              }
+            }
+          ],
+          "visitaTerminada": true
+        },
+        {
+          "visita": "id",
+          "examenes": [
+            {
+              "triaje": {
+                "h.ing": "date",
+                "h.sal": "date",
+                "atendidoPor": "id",
+                "completado": false
+              }
+            },
+            {
+              "oftalmo": {
+                "h.ing": "date",
+                "h.sal": "date",
+                "atendidoPor": "id",
+                "completado": false
+              }
+            }
+          ],
+          "visitaTerminada": false
+        }
+      ]
+    }
+  }
+  

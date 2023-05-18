@@ -6,6 +6,7 @@ import { auth } from "./firebase-config";
 import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Register from './Register';
+import Buscador from './Buscador';
 
 function App() {
 
@@ -22,9 +23,9 @@ function App() {
         <>
             <main id="main-content">
                 <Routes>
-                    <Route path="/" element={usuario ? <Inicio /> :
-                        <Login setUsuario={setUsuario} />} />
+                    <Route path="/" element={usuario ? <Inicio /> : <Login setUsuario={setUsuario} />} />
                     <Route path="/register" element={<Register />} />
+                    <Route path="/buscador" element={<Buscador />} />
                 </Routes>
             </main>
         </>

@@ -11,7 +11,7 @@ export default function  Buscador () {
   
     const buscarPaciente = () => {
       const paciente = datos.paciente;
-      if(paciente.dni == searchDNI){
+      if(paciente.dni === searchDNI){
         setPacienteEncontrado(paciente);
         setError(false);
       }else{

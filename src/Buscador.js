@@ -12,6 +12,7 @@ export default function Buscador() {
     const [error, setError] = useState(false);
 
 
+
     const buscarPaciente = async () => {
 
         const docRef = doc(db, "pacientes", searchDNI);
@@ -39,6 +40,7 @@ export default function Buscador() {
            setTimeout(() => setError(false), 5000); // Mostrar el mensaje de error durante 5 segundos
          }*/
     };
+
 
     const handleInputChange = event => {
         setSearchDNI(event.target.value);

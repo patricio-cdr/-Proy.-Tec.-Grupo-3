@@ -1,0 +1,25 @@
+#registerP .form {
+    max-width: 450px;
+}
+
+#registerP h2{
+    font-size: 35px;
+}
+
+#registerP .form .form-content{
+    padding: 15% 10%;
+}
+
+#registerP .form .form-content .row-display{
+    justify-content: space-between;
+}
+
+.w-47{
+    width: 47%;
+}
+
+#registerP{
+    color: #0000007c;
+    font-weight: 500;
+}
+

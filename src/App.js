@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Register from './Register';
 import Buscador from './Buscador';
+import RegisterP from './RegisterP';
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
                     <Route path="/" element={usuario ? <Inicio /> : <Login setUsuario={setUsuario} />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/buscador" element={<Buscador />} />
+                    <Route path="/nuevopaciente" element={<RegisterP />} />
                 </Routes>
             </main>
         </>

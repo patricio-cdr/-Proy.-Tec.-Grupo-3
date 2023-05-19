@@ -12,6 +12,7 @@ const Login = (props) => {
   //const [registerPassword, setRegisterPassword] = useState("");
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
+  const [error, setError] = useState('');
 
   // const register = async () => {
   //     try {
@@ -41,28 +42,55 @@ const Login = (props) => {
         }
     };
 */
+  const validateForm = () => {
+    if (!loginEmail || !loginPassword) {
+      setError('Por favor, complete todos los campos.');
+      setTimeout(() => {
+        setError('');
+      }, 2000);
+      return false
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(loginEmail)) {
+      setError('Por favor, ingrese un email válido.');
+      setTimeout(() => {
+        setError('');
+      }, 2000);
+      return false
+    }
+
+    // Completar demas lógica de validación de email y contraseña aquí
+
+    return true;
+  };
 
   const login = async () => {
     let attempts = 5; // Número máximo de intentos
+    setError('');
     try {
-      while (attempts > 0) {
-        const user = await signInWithEmailAndPassword(
-          auth,
-          loginEmail,
-          loginPassword
-        );
-        // Inicio de sesión exitoso
-        props.setUsuario(user);
-        //navigate("/Inicio");
-        break; // Salir del bucle while
+      if (validateForm()) {
+        while (attempts > 0) {
+          const user = await signInWithEmailAndPassword(
+            auth,
+            loginEmail,
+            loginPassword
+          );
+          // Inicio de sesión exitoso
+          props.setUsuario(user);
+          //navigate("/Inicio");
+          break; // Salir del bucle while
+        }
+        if (attempts === 0) {
+          // Si se alcanza el límite de intentos, muestra un mensaje de error con alert
+          alert("Límite de intentos alcanzado");
+        }
       }
-      if (attempts === 0) {
-        // Si se alcanza el límite de intentos, muestra un mensaje de error con alert
-        alert("Límite de intentos alcanzado");
-      }
+
     } catch (error) {
       alert(error.message); // Mostrar mensaje de error con alert
       attempts--; // Disminuir el contador de intentos en caso de error
+      console.log("consulte a sistemas");
     }
   };
 
@@ -79,6 +107,7 @@ const Login = (props) => {
                 className="img-fluid w-100 h-100 logo-img"
               />
             </div>
+            {error && <p className="text-danger">{error}</p>}
             <input
               type="email"
               placeholder="Ingrese su correo electrónico"

@@ -45,35 +45,39 @@ export default function HrvPaciente() {
                     <div id="icon-box"><i className="fas fa-search" onClick={buscarPaciente}></i></div>
                 </div>
                 {pacienteEncontrado && (
-                        <div className='datos-paciente mx-auto mt-5'>
-                            <h6 className='text-uppercase'>{pacienteEncontrado.nombres} {pacienteEncontrado.apellidos}</h6>
-                            <p>Correo electrónico: {pacienteEncontrado.email}</p>
-                            <p>DNI: {pacienteEncontrado.dni}</p>
-                            <p>Teléfono celular: {pacienteEncontrado.telefono}</p>
-                            <p>Empresa: {pacienteEncontrado.empre}</p>
-                            <p>Fecha de nacimiento: {pacienteEncontrado.fecNac}</p>
-                        </div>
+                    <div className='datos-paciente mx-auto mt-5'>
+                        <h6 className='text-uppercase'>{pacienteEncontrado.nombres} {pacienteEncontrado.apellidos}</h6>
+                        <p>Correo electrónico: {pacienteEncontrado.email}</p>
+                        <p>DNI: {pacienteEncontrado.dni}</p>
+                        <p>Teléfono celular: {pacienteEncontrado.telefono}</p>
+                        <p>Empresa: {pacienteEncontrado.empre}</p>
+                        <p>Fecha de nacimiento: {pacienteEncontrado.fecNac}</p>
+                    </div>
                 )}
-                        <div>
-                            <table class="table mt-4">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Examenes</th>
-                                        <th scope="col">Atendido por</th>
-                                        <th scope="col">H.ingreso</th>
-                                        <th scope="col">H.salida</th>
-                                        <th scope="col"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                <div>
+                    <table class="table mt-4">
+                        <thead>
+                            <tr>
+                                <th scope="col">Examenes</th>
+                                <th scope="col">Atendido por</th>
+                                <th scope="col">H.ingreso</th>
+                                <th scope="col">H.salida</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
 
-                                </tbody>
-                            </table>
+                        </tbody>
+                    </table>
 
-                        </div>
+                </div>
                 {error && <span id="msg-dni-error" className="text-danger mt-5 ">No se encontró paciente con ese DNI</span>}
-            </div>
 
+            </div>
+            <div className='row-display buttons'>
+                <button className="boton-regresar">REGISTRAR HRV</button>
+                <button className="btn-buscar-p">TERMINAR VISITA</button>
+            </div>
         </div>
     )
 }

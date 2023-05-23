@@ -1,0 +1,17 @@
+.datos-paciente{
+    text-align: center;
+    border: 5px solid #A8A198;
+    border-radius: 30px;
+    width: 70%;
+    color: #0000007c;
+    font-weight: 500;
+}
+
+.datos-paciente .text-uppercase{
+    border-bottom: 5px solid #A8A198;
+}
+
+.datos-paciente p,.datos-paciente h6{
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}

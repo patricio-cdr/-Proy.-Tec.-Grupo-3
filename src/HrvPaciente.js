@@ -19,7 +19,9 @@ export default function HrvPaciente() {
             const paciente = docSnap.data();
             setPacienteEncontrado(paciente);
             setListaExamen(paciente.visitas[Array.length - 1].perfiles[paciente.perfil].examenes);
+            const result = Array.isArray(listaExamen) ? listaExamen.map(element => console.log(element.atendidoPor)) : [];
             setError(false);
+            console.log(result);
         } else {
             // docSnap.data() will be undefined in this case
             console.log("No such document!");
@@ -66,7 +68,7 @@ export default function HrvPaciente() {
                             </tr>
                         </thead>
                         <tbody>
-
+              
                         </tbody>
                     </table>
 

@@ -8,6 +8,7 @@ import { Routes, Route } from "react-router-dom";
 import Register from './Register';
 import Buscador from './Buscador';
 import RegisterP from './RegisterP';
+import HrvPaciente from './HrvPaciente';
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
                     <Route path="/register" element={<Register />} />
                     <Route path="/buscador" element={<Buscador />} />
                     <Route path="/nuevopaciente" element={<RegisterP />} />
+                    <Route path="/hrvPaciente" element={<HrvPaciente/>} />
                 </Routes>
             </main>
         </>

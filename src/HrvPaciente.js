@@ -10,7 +10,7 @@ export default function HrvPaciente() {
     const [pacienteEncontrado, setPacienteEncontrado] = useState(null);
     const [error, setError] = useState(false);
     const [listaExamen, setListaExamen] = useState([]);
-
+    
     const buscarPaciente = async () => {
         const docRef = doc(db, "pacientes", searchDNI);
         const docSnap = await getDoc(docRef);
@@ -18,14 +18,15 @@ export default function HrvPaciente() {
             console.log("Document data:", docSnap.data());
             const paciente = docSnap.data();
             setPacienteEncontrado(paciente);
-            setListaExamen(paciente.visitas[Array.length - 1].perfiles[paciente.perfil].examenes);
-            const result = Array.isArray(listaExamen) ? listaExamen.map(element => console.log(element.atendidoPor)) : [];
+            const listaExm = paciente.visitas[0].perfiles[`OPE-1`].examenes;
+            setListaExamen(listaExm);
             setError(false);
-            console.log(result);
+            console.log(listaExm);
         } else {
             // docSnap.data() will be undefined in this case
             console.log("No such document!");
             setPacienteEncontrado("");
+            setListaExamen([]);
             setError(true);
             setTimeout(() => setError(false), 3000);
         }
@@ -68,8 +69,15 @@ export default function HrvPaciente() {
                             </tr>
                         </thead>
                         <tbody>
-              
-                        </tbody>
+                            {listaExamen.map((examen, index) => (
+                                <tr key={index}>
+                                <td>{examen}</td>
+                                <td>{examen.atendidoPor}</td>
+                                <td>{examen.h.ing}</td>
+                                <td>{examen.h.sal}</td>
+                                </tr>
+                            ))}
+                            </tbody>
                     </table>
 
                 </div>

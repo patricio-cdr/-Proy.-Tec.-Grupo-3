@@ -10,7 +10,7 @@ export default function HrvPaciente() {
     const [pacienteEncontrado, setPacienteEncontrado] = useState(null);
     const [error, setError] = useState(false);
     const [listaExamen, setListaExamen] = useState([]);
-    
+
     const buscarPaciente = async () => {
         const docRef = doc(db, "pacientes", searchDNI);
         const docSnap = await getDoc(docRef);
@@ -18,10 +18,15 @@ export default function HrvPaciente() {
             console.log("Document data:", docSnap.data());
             const paciente = docSnap.data();
             setPacienteEncontrado(paciente);
-            const listaExm = paciente.visitas[0].perfiles[`OPE-1`].examenes;
-            setListaExamen(listaExm);
+
+            paciente.visitas.forEach(visita => {
+                if (visita.visitaTerminada === false) {
+                    setListaExamen(visita.examenes);
+                    //console.log(typeof visita.examenes);
+                }
+            });
+
             setError(false);
-            console.log(listaExm);
         } else {
             // docSnap.data() will be undefined in this case
             console.log("No such document!");
@@ -69,15 +74,19 @@ export default function HrvPaciente() {
                             </tr>
                         </thead>
                         <tbody>
-                            {listaExamen.map((examen, index) => (
-                                <tr key={index}>
-                                <td>{examen}</td>
-                                <td>{examen.atendidoPor}</td>
-                                <td>{examen.h.ing}</td>
-                                <td>{examen.h.sal}</td>
-                                </tr>
-                            ))}
-                            </tbody>
+                            {
+                                listaExamen.map((examen, index) => (
+                                    <tr key={index}>
+                                        <td>{examen.nombre}</td>
+                                        <td>{examen.atendidoPor}</td>
+                                        <td>{examen.horaIngreso}</td>
+                                        <td>{examen.horaSalida}</td>
+                                    </tr>
+                                ))
+                            }
+
+                        </tbody>
+
                     </table>
 
                 </div>
@@ -85,7 +94,7 @@ export default function HrvPaciente() {
 
             </div>
             <div className='row-display buttons'>
-                <button className="boton-regresar">REGISTRAR HRV</button>
+                <button className="boton-regresar">REENVIAR HRV</button>
                 <button className="btn-buscar-p">TERMINAR VISITA</button>
             </div>
         </div>

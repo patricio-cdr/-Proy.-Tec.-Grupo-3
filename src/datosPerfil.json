@@ -1,24 +1,27 @@
 {
-    "examenes": {
-        "oftalmo": {
+    "examenes": [
+        {
+            "nombre": "oftalmo",
             "atendidoPor": "",
             "completado": false,
-            "h.ing": null,
-            "h.sal": null
+            "horaIngreso": null,
+            "horaSalida": null
         },
-        "triaje": {
+        {
+            "nombre": "triaje",
             "atendidoPor": "",
             "completado": false,
-            "h.ing": null,
-            "h.sal": null
+            "horaIngreso": null,
+            "horaSalida": null
         },
-        "ekg": {
+        {
+            "nombre": "ekg",
             "atendidoPor": "",
             "completado": false,
-            "h.ing": null,
-            "h.sal": null
+            "horaIngreso": null,
+            "horaSalida": null
         }
-    },
+    ],
     "visitaTerminada": false,
     "initVisita": null,
     "finVisita": null

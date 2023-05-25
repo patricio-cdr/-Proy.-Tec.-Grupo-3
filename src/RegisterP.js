@@ -57,7 +57,8 @@ export default function RegisterP() {
         nombres: pacNombre,
         apellidos: pacApe,
         telefono: pacTelef,
-        perfil: [
+        perfil: pacPerfil,
+        visitas: [
           parsedPerfil
         ]
       };

@@ -1,0 +1,25 @@
+{
+    "examenes": {
+        "oftalmo": {
+            "atendidoPor": "",
+            "completado": false,
+            "h.ing": null,
+            "h.sal": null
+        },
+        "triaje": {
+            "atendidoPor": "",
+            "completado": false,
+            "h.ing": null,
+            "h.sal": null
+        },
+        "ekg": {
+            "atendidoPor": "",
+            "completado": false,
+            "h.ing": null,
+            "h.sal": null
+        }
+    },
+    "visitaTerminada": false,
+    "initVisita": null,
+    "finVisita": null
+}

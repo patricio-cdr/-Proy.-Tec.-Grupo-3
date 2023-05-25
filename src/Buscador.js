@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './Buscador.css';
-import datos from './datos.json';
 import { Link } from "react-router-dom";
 import { db } from "./firebase-config";
 import { doc, getDoc } from "firebase/firestore";
@@ -11,13 +10,9 @@ export default function Buscador() {
     const [pacienteEncontrado, setPacienteEncontrado] = useState(null);
     const [error, setError] = useState(false);
 
-
-
     const buscarPaciente = async () => {
-
         const docRef = doc(db, "pacientes", searchDNI);
         const docSnap = await getDoc(docRef);
-
         if (docSnap.exists()) {
             console.log("Document data:", docSnap.data());
             const paciente = docSnap.data();
@@ -60,14 +55,20 @@ export default function Buscador() {
                     <div id="icon-box"><i className="fas fa-search" onClick={buscarPaciente}></i></div>
                 </div>
                 {pacienteEncontrado && (
-                    <div className="paciente-encontrado">
-                        <div className='paciente-encontrado-box'>
-                            <h3 className='mb-3'>Datos del paciente</h3>
-                            <p>Nombre: {pacienteEncontrado.nombres}</p>
-                            <p>Teléfono: {pacienteEncontrado.telefono}</p>
-                            <p>Empresa: {pacienteEncontrado.empre}</p>
-                        </div>
-                    </div>
+                    <table class="table mt-4">
+                        <thead>
+                            <tr>
+                                <th scope="col">Paciente</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row" className='text-uppercase'>{pacienteEncontrado.nombres}</th>
+                                <td className='boton-paciente text-center'>Crear HRV <i class="bi bi-plus-lg"></i></td>
+                                <td className='boton-paciente text-center'>Editar <i class="bi bi-pencil-fill"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 )}
                 {error && <span id="msg-dni-error" className="text-danger mt-5 ">No se encontró paciente con ese DNI</span>}
             </div>

@@ -25,8 +25,8 @@ function Inicio() {
             </div>
         </div>
         <div className=' d-flex justify-content-between'>  
-          <Link to="/hrv"><button type='button' id="crear-hrv" className='btn-hrv'>CREAR HRV</button></Link>
-          <Link to="/buscador"><button type='button' id="buscar-paciente" className='btn-buscar-p'>BUSCAR PACIENTE</button></Link>
+          <Link to="/buscador"><button type='button' id="crear-hrv" className='btn-hrv'>CREAR HRV</button></Link>
+          <Link to="/hrvPaciente"><button type='button' id="buscar-paciente" className='btn-buscar-p'>BUSCAR PACIENTE</button></Link>
         </div>
     </section>
   )

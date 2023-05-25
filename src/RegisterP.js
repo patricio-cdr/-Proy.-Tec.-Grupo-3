@@ -5,6 +5,7 @@ import "./RegisterP.css";
 import { db } from "./firebase-config";
 import { doc, setDoc, Timestamp } from "firebase/firestore";
 import { Link } from "react-router-dom";
+import datosPerfil from './datosPerfil.json'
 
 export default function RegisterP() {
 
@@ -19,9 +20,9 @@ export default function RegisterP() {
 
     const [errorMsg, setErrorMsg] = useState('');
 
+
     const registerPac = async () => {
         try {
-
             if (!pacEmail ||
                 !pacNombre ||
                 !pacApe ||
@@ -37,6 +38,8 @@ export default function RegisterP() {
                 return
             }
 
+            var parsedPerfil = JSON.parse(JSON.stringify(datosPerfil))
+
             const docData = {
                 dni: pacDni,
                 email: pacEmail,
@@ -46,6 +49,9 @@ export default function RegisterP() {
                 apellidos: pacApe,
                 telefono: pacTelef,
                 perfil: pacPerfil,
+                visitas: [
+                    parsedPerfil
+                ]
             }
             console.log(docData)
             await setDoc(doc(db, "pacientes", pacDni), docData);

@@ -56,14 +56,14 @@ export default function HrvPaciente() {
                     <div className='datos-paciente mx-auto mt-5'>
                         <h6 className='text-uppercase'>{pacienteEncontrado.nombres} {pacienteEncontrado.apellidos}</h6>
                         <p>Correo electrónico: {pacienteEncontrado.email}</p>
-                        <p>DNI: {pacienteEncontrado.dni}</p>
+                        <p>DNI: {pacienteEncontrado.numDoc}</p>
                         <p>Teléfono celular: {pacienteEncontrado.telefono}</p>
                         <p>Empresa: {pacienteEncontrado.empre}</p>
                         <p>Fecha de nacimiento: {pacienteEncontrado.fecNac}</p>
                     </div>
                 )}
                 <div>
-                    <table class="table mt-4">
+                    <table className="table mt-4">
                         <thead>
                             <tr>
                                 <th scope="col">Examenes</th>

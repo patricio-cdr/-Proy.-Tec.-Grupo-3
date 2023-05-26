@@ -9,6 +9,7 @@ import Register from './Register';
 import Buscador from './Buscador';
 import RegisterP from './RegisterP';
 import HrvPaciente from './HrvPaciente';
+import EditarP from './EditarP';
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
                     <Route path="/buscador" element={<Buscador />} />
                     <Route path="/nuevopaciente" element={<RegisterP />} />
                     <Route path="/hrvPaciente" element={<HrvPaciente/>} />
+                    <Route path="/editarPaciente/:numDoc" element={<EditarP/>} />
                 </Routes>
             </main>
         </>

@@ -65,7 +65,7 @@ export default function Buscador() {
                             <tr>
                                 <th scope="row" className='text-uppercase'>{pacienteEncontrado.nombres}</th>
                                 <td className='boton-paciente text-center'>Crear HRV <i class="bi bi-plus-lg"></i></td>
-                                <td className='boton-paciente text-center'>Editar <i class="bi bi-pencil-fill"></i></td>
+                                <Link to={"/editarPaciente/" + pacienteEncontrado.numDoc} className="d-flex"><td className='boton-paciente text-center'>Editar <i class="bi bi-pencil-fill"></i></td></Link>
                             </tr>
                         </tbody>
                     </table>

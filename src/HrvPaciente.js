@@ -1,8 +1,13 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { db } from "./firebase-config";
-import { doc, getDoc } from "firebase/firestore";
+import { db, app } from "./firebase-config";
+import { doc, getDoc, setDoc, Timestamp, updateDoc, arrayUnion, FieldValue } from "firebase/firestore";
 import './HrvPaciente.css';
+import { auth } from "./firebase-config";
+import { useNavigate } from "react-router-dom";
+
+
+
 
 export default function HrvPaciente() {
 
@@ -10,19 +15,25 @@ export default function HrvPaciente() {
     const [pacienteEncontrado, setPacienteEncontrado] = useState(null);
     const [error, setError] = useState(false);
     const [listaExamen, setListaExamen] = useState([]);
+    const [pacienteDocRef, setPacienteDocRef] = useState('');
+    const [visitaActual, setVisitaActual] = useState('')
+
+    const navigate = useNavigate();
+
 
     const buscarPaciente = async () => {
         const docRef = doc(db, "pacientes", searchDNI);
+        setPacienteDocRef(docRef);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
             console.log("Document data:", docSnap.data());
+
             const paciente = docSnap.data();
             setPacienteEncontrado(paciente);
 
             paciente.visitas.forEach(visita => {
                 if (visita.visitaTerminada === false) {
                     setListaExamen(visita.examenes);
-                    //console.log(typeof visita.examenes);
                 }
             });
 
@@ -36,6 +47,110 @@ export default function HrvPaciente() {
             setTimeout(() => setError(false), 3000);
         }
     };
+
+    const insertarHoraPara = (examenNombre, accion) => async () => {
+        // console.log('Value from row:', examenNombre);
+        // console.log('Value from btn:', accion);
+        // console.log(auth.currentUser.uid)
+        // console.log(pacienteEncontrado.numDoc)
+        try {
+            const docSnap = (await getDoc(pacienteDocRef)).data();
+
+            docSnap.visitas.forEach((visita, index) => {
+                if (visita.visitaTerminada === false) {
+                    setVisitaActual(visita)
+                    var visitaIndex = index;
+
+                    visitaActual.examenes.forEach(async (examenEnBD, indexTwo) => {
+                        if (examenEnBD.nombre == examenNombre) {
+                            var examenIndex = indexTwo;
+                            var pacienteActualizar = pacienteEncontrado
+
+                            if (accion === "horaSalida") {
+                                pacienteActualizar.visitas[visitaIndex].examenes[examenIndex].atendidoPor = auth.currentUser.uid;
+                                pacienteActualizar.visitas[visitaIndex].examenes[examenIndex].horaSalida = new Date(Date.now()).toLocaleString();
+                                pacienteActualizar.visitas[visitaIndex].examenes[examenIndex].horaIngreso = docSnap.visitas[visitaIndex].examenes[examenIndex].horaIngreso;
+                                pacienteActualizar.visitas[visitaIndex].examenes[examenIndex].completado = true;
+
+                                var pacienteActualizado = JSON.parse(JSON.stringify(pacienteActualizar))
+
+                                await setDoc(doc(db, "pacientes", searchDNI), pacienteActualizado);
+                                alert("Paciente actualizado con éxito.");
+                            } else {
+                                pacienteActualizar.visitas[visitaIndex].examenes[examenIndex].atendidoPor = auth.currentUser.uid;
+                                pacienteActualizar.visitas[visitaIndex].examenes[examenIndex].horaSalida = "";
+                                pacienteActualizar.visitas[visitaIndex].examenes[examenIndex].horaIngreso = new Date(Date.now()).toLocaleString();
+                                pacienteActualizar.visitas[visitaIndex].examenes[examenIndex].completado = false;
+                                console.log("Hizo click en hora ingreso ")
+
+                                var pacienteActualizado = JSON.parse(JSON.stringify(pacienteActualizar))
+
+                                await setDoc(doc(db, "pacientes", searchDNI), pacienteActualizado);
+                                alert("Paciente actualizado con éxito.");
+                            }
+
+                            var fieldPath = `visitas.[${visitaIndex}].examenes.[${examenIndex}]`
+                        }
+                    })
+                }
+            });
+        } catch (error) {
+
+        }
+
+    };
+
+    const reiniciar = (examenNombre) => async () => {
+        const docSnap = (await getDoc(pacienteDocRef)).data();
+
+        docSnap.visitas.forEach((visita, index) => {
+            if (visita.visitaTerminada === false) {
+                setVisitaActual(visita)
+                var visitaIndex = index;
+
+                visitaActual.examenes.forEach(async (examenEnBD, indexTwo) => {
+                    if (examenEnBD.nombre == examenNombre) {
+                        var examenIndex = indexTwo;
+                        var pacienteActualizar = pacienteEncontrado
+
+                        pacienteActualizar.visitas[visitaIndex].examenes[examenIndex].atendidoPor = "";
+                        pacienteActualizar.visitas[visitaIndex].examenes[examenIndex].horaSalida = "";
+                        pacienteActualizar.visitas[visitaIndex].examenes[examenIndex].horaIngreso = "";
+                        pacienteActualizar.visitas[visitaIndex].examenes[examenIndex].completado = false;
+
+                        var pacienteActualizado = JSON.parse(JSON.stringify(pacienteActualizar))
+
+                        await setDoc(doc(db, "pacientes", searchDNI), pacienteActualizado);
+                        alert("Paciente actualizado con éxito.");
+
+                    }
+                })
+            }
+        })
+    }
+
+    const terminarVisita = () => async () => {
+
+        const docSnap = (await getDoc(pacienteDocRef)).data();
+
+        docSnap.visitas.forEach(async (visita, index) => {
+            if (visita.visitaTerminada === false) {
+                setVisitaActual(visita)
+                var visitaIndex = index;
+
+                var pacienteActualizar = pacienteEncontrado
+
+                pacienteActualizar.visitas[visitaIndex].visitaTerminada = true
+
+                var pacienteActualizado = JSON.parse(JSON.stringify(pacienteActualizar))
+
+                await setDoc(doc(db, "pacientes", searchDNI), pacienteActualizado);
+                alert("Visita terminada con éxito.");
+                navigate("/");
+            }
+        })
+    }
+
 
     const handleInputChange = event => {
         setSearchDNI(event.target.value);
@@ -56,7 +171,7 @@ export default function HrvPaciente() {
                     <div className='datos-paciente mx-auto mt-5'>
                         <h6 className='text-uppercase'>{pacienteEncontrado.nombres} {pacienteEncontrado.apellidos}</h6>
                         <p>Correo electrónico: {pacienteEncontrado.email}</p>
-                        <p>DNI: {pacienteEncontrado.dni}</p>
+                        <p>DNI: {pacienteEncontrado.numDoc}</p>
                         <p>Teléfono celular: {pacienteEncontrado.telefono}</p>
                         <p>Empresa: {pacienteEncontrado.empre}</p>
                         <p>Fecha de nacimiento: {pacienteEncontrado.fecNac}</p>
@@ -68,8 +183,11 @@ export default function HrvPaciente() {
                             <tr>
                                 <th scope="col">Examenes</th>
                                 <th scope="col">Atendido por</th>
+                                <th scope="col">Especificaciones</th>
                                 <th scope="col">H.ingreso</th>
+                                <th scope="col"></th>
                                 <th scope="col">H.salida</th>
+                                <th scope="col"></th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
@@ -79,8 +197,12 @@ export default function HrvPaciente() {
                                     <tr key={index}>
                                         <td>{examen.nombre}</td>
                                         <td>{examen.atendidoPor}</td>
+                                        <td></td>
                                         <td>{examen.horaIngreso}</td>
+                                        <td><button class="editbtn" onClick={insertarHoraPara(examen.nombre, "horaIngreso")}>Iniciar</button></td>
                                         <td>{examen.horaSalida}</td>
+                                        <td><button class="editbtn" onClick={insertarHoraPara(examen.nombre, "horaSalida")}>Finalizar</button></td>
+                                        <td><button class="editbtn" onClick={reiniciar(examen.nombre)}>Reiniciar</button></td>
                                     </tr>
                                 ))
                             }
@@ -95,7 +217,7 @@ export default function HrvPaciente() {
             </div>
             <div className='row-display buttons'>
                 <button className="boton-regresar">REENVIAR HRV</button>
-                <button className="btn-buscar-p">TERMINAR VISITA</button>
+                <button className="btn-buscar-p" onClick={terminarVisita()}>TERMINAR VISITA</button>
             </div>
         </div>
     )

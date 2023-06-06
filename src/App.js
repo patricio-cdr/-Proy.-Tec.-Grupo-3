@@ -10,6 +10,7 @@ import Buscador from './Buscador';
 import RegisterP from './RegisterP';
 import HrvPaciente from './HrvPaciente';
 import EditarP from './EditarP';
+import Paciente from './Paciente';
 
 function App() {
 
@@ -32,6 +33,8 @@ function App() {
                     <Route path="/nuevopaciente" element={<RegisterP />} />
                     <Route path="/hrvPaciente" element={<HrvPaciente/>} />
                     <Route path="/editarPaciente/:numDoc" element={<EditarP/>} />
+                    <Route path="/pantallaPaciente/:numDoc" element={<Paciente/>} />
+
                 </Routes>
             </main>
         </>

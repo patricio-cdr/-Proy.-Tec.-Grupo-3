@@ -1,0 +1,40 @@
+#pantalla-paciente .table-paciente{
+    max-width: 30%;
+    border-radius: 7%;
+}
+
+#pantalla-paciente .table-paciente img{
+    width: 20px;
+    height: 20px;
+}
+
+.table{
+    --bs-table-border-color: #F8F3E9!important;
+    margin-right: 1rem;
+}
+
+.table>:not(caption)>*>*{
+    border-bottom-width: 5px;
+}
+
+#pantalla-paciente .table-paciente th{
+    background-color: #A8A198;
+    color: #ffffff;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link{
+    background-color: #52bcc9;
+    color: #ffffff;
+
+}
+
+.nav-link{
+    color: #52bcc9;
+    padding: 1rem 2.5rem;
+    border-radius: 15px!important;
+    font-size: 20px;
+}
+.nav-link:focus, .nav-link:hover{
+    color: #52bcc9;
+
+}

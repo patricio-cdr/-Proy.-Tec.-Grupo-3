@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import './Buscador.css';
 import { Link } from "react-router-dom";
 import { db } from "./firebase-config";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { async } from 'q';
+import datosPerfil from './datosPerfil.json'
 
 export default function Buscador() {
     const [searchDNI, setSearchDNI] = useState('');
@@ -25,15 +26,40 @@ export default function Buscador() {
             setError(true);
             setTimeout(() => setError(false), 3000);
         }
+    };
 
+    const crearHrv = () => async () => {
 
-        /*  if (dniEncontrado) {
-           setPacienteEncontrado(dniEncontrado);
-           setError(false);
-         } else {
-           setError(true);
-           setTimeout(() => setError(false), 5000); // Mostrar el mensaje de error durante 5 segundos
-         }*/
+        const docRef = doc(db, "pacientes", searchDNI);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+            console.log("Document data:", docSnap.data());
+            const paciente = docSnap.data();
+            setPacienteEncontrado(paciente);
+
+            //console.log(paciente.visitas)
+
+            if (paciente.visitas.every(visita => visita.visitaTerminada === true)) {
+                var parsedPerfil = JSON.parse(JSON.stringify(datosPerfil))
+                
+                parsedPerfil.initVisita = new Date(Date.now()).toLocaleString();
+                
+                await updateDoc(docRef, {
+                    visitas: arrayUnion(parsedPerfil)
+                });
+                alert("Hoja de ruta virtual creada.");
+            } else {
+                alert("EL PACIENTE TIENE UNA HRV ACTIVA.");
+            }
+
+            setError(false);
+        } else {
+            // docSnap.data() will be undefined in this case
+            console.log("No such document!");
+            setPacienteEncontrado("");
+            setError(true);
+            setTimeout(() => setError(false), 3000);
+        }
     };
 
 
@@ -63,8 +89,8 @@ export default function Buscador() {
                         </thead>
                         <tbody>
                             <tr>
-                                <th scope="row" className='text-uppercase'>{pacienteEncontrado.nombres}</th>
-                                <td className='boton-paciente text-center'>Crear HRV <i class="bi bi-plus-lg"></i></td>
+                                <th scope="row" className='text-uppercase'>{pacienteEncontrado.nombres + " " + pacienteEncontrado.apellidos}</th>
+                                <button className='boton-paciente text-center' onClick={crearHrv()}>Crear HRV <i class="bi bi-plus-lg"></i></button>
                                 <Link to={"/editarPaciente/" + pacienteEncontrado.numDoc} className="d-flex"><td className='boton-paciente text-center'>Editar <i class="bi bi-pencil-fill"></i></td></Link>
                             </tr>
                         </tbody>

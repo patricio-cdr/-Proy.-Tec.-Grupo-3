@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { db } from "./firebase-config";
-import { doc, setDoc, getDoc, updateDoc, deleteDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, updateDoc, deleteDoc, onSnapshot } from "firebase/firestore";
 import './Paciente.css';
 import { useParams } from 'react-router-dom'
 import { useNavigate } from "react-router-dom";
@@ -10,12 +10,71 @@ import completo from "./assets/completo.png";
 import incompleto from "./assets/incompleto.png";
 
 
+
 export default function Paciente() {
+
+    const [pacienteEncontrado, setPacienteEncontrado] = useState(null);
+    const [pacienteDocRef, setPacienteDocRef] = useState("");
+    const [listaExamen, setListaExamen] = useState([]);
+    const [data, setData] = useState(null);
+    const [error, setError] = useState(false);
+
+    let params = useParams();
+
+    const buscarPaciente = async () => {
+        const docRef = doc(db, "pacientes", params.numDoc);
+        setPacienteDocRef(docRef);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+            console.log("Document data:", docSnap.data());
+
+            const paciente = docSnap.data();
+            setPacienteEncontrado(paciente);
+
+            paciente.visitas.forEach((visita) => {
+                if (visita.visitaTerminada === false) {
+                    setListaExamen(visita.examenes);
+                    console.log("Lista examenes:", listaExamen);
+                }
+            });
+
+            setError(false);
+        } else {
+            // docSnap.data() will be undefined in this case
+            console.log("No such document!");
+            setPacienteEncontrado("");
+            setListaExamen([]);
+            setError(true);
+            setTimeout(() => setError(false), 3000);
+        }
+    };
+
+    // Used to make the effect function run everytime the component is rendered or the DOM is updated.
+    useEffect(() => {
+        buscarPaciente();
+        
+        // Create a Firestore document reference
+        const docRef = doc(db, 'pacientes', params.numDoc);
+
+        // Set up a snapshot listener for the document
+        const unsubscribe = onSnapshot(docRef, (snapshot) => {
+            // Update the state with the new data
+            setData(snapshot.data());
+            buscarPaciente()
+        });
+
+        // Clean up the listener when the component is unmounted
+        return () => {
+            unsubscribe();
+        };
+    }, [])
+
+
     return (
         <section id='pantalla-paciente' className='container mx-auto mt-5'>
             <h2>Hola </h2>
             <div className="tab-content" id="pills-tabContent">
-                <div className="tab-pane fade show active" id="pills-examen" role="tabpanel" aria-labelledby="pills-examen-tab" tabindex="0">
+                <div className="tab-pane fade show active" id="pills-examen" role="tabpanel" aria-labelledby="pills-examen-tab" tabIndex="0">
                     <table className="table table-paciente mt-5 text-center mx-auto">
                         <thead className='text-uppercase'>
                             <tr>
@@ -24,22 +83,17 @@ export default function Paciente() {
                             </tr>
                         </thead>
                         <tbody className='text-capitalize'>
-                            <tr>
-                                <th scope="row">Triaje</th>
-                                <td><img src={completo} alt="" /></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Osteomuscular</th>
-                                <td><img src={incompleto} alt="" /></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Examen 3</th>
-                                <td><img src={completo} alt="" /></td>
-                            </tr>
+                            {listaExamen.map((examen, index) => (
+                                <tr key={index}>
+                                    <th scope="row">{examen.nombre}</th>
+                                    <td><img src={examen.completado ? completo : incompleto} alt="" /></td>
+                                </tr>
+                            ))}
+
                         </tbody>
                     </table>
                 </div>
-                <div className="tab-pane fade" id="pills-mapa" role="tabpanel" aria-labelledby="pills-mapa-tab" tabindex="0">
+                <div className="tab-pane fade" id="pills-mapa" role="tabpanel" aria-labelledby="pills-mapa-tab" tabIndex="0">
                     MAPA CLINICA
                 </div>
             </div>

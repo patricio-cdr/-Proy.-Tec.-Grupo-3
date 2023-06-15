@@ -90,23 +90,23 @@ export default function RegisterP() {
                             onChange={(event) => {
                                 setPacEmail(event.target.value);
                             }}
-                        />
+                        /><br />
                         <input
                             type="text"
                             placeholder="Ingrese sus nombres..."
-                            className="form-control mt-3"
+                            className="form-control"
                             onChange={(event) => {
                                 setPacNombre(event.target.value);
                             }}
-                        />
+                        /><br />
                         <input
                             type="text"
                             placeholder="Ingrese sus apellidos..."
-                            className="form-control mt-3"
+                            className="form-control "
                             onChange={(event) => {
                                 setPacApe(event.target.value);
                             }}
-                        />
+                        /><br />
                         <div className="row-display">
                             <div className="w-100">
                                 Perfil
@@ -125,7 +125,7 @@ export default function RegisterP() {
                                     </select>
                                 </div>
                             </div>
-                        </div>
+                        </div><br />
 
                         <div className="row-display">
                             <div className="w-5">
@@ -148,7 +148,7 @@ export default function RegisterP() {
                             <div className="w-80">
                                 <input
                                     type="text"
-                                    placeholder="Ingrese num doc..."
+                                    placeholder="Ingrese número doc..."
                                     className="form-control mt-4"
                                     onChange={(event) => {
                                         setNumDoc(event.target.value);
@@ -158,7 +158,7 @@ export default function RegisterP() {
                                     pattern={tipoDoc === "dni" ? "[0-9]{8}" : "[A-Za-z0-9]{1,12}"}
                                 />
                             </div>
-                        </div>
+                        </div><br />
 
                         <div className="row-display">
                             <div className="w-47">
@@ -183,11 +183,11 @@ export default function RegisterP() {
                                     }}
                                 />
                             </div>
-                        </div>
+                        </div><br />
                         <input
                             type="text"
                             placeholder="Ingrese nombre de su empresa..."
-                            className="form-control mt-3"
+                            className="form-control "
                             onChange={(event) => {
                                 setPacEmpre(event.target.value);
                             }}

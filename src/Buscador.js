@@ -81,7 +81,7 @@ export default function Buscador() {
                     <div id="icon-box"><i className="fas fa-search" onClick={buscarPaciente}></i></div>
                 </div>
                 {pacienteEncontrado && (
-                    <table class="table mt-4">
+                    <table class="table mt-4 bbw">
                         <thead>
                             <tr>
                                 <th scope="col">Paciente</th>
@@ -91,7 +91,7 @@ export default function Buscador() {
                             <tr>
                                 <th scope="row" className='text-uppercase'>{pacienteEncontrado.nombres + " " + pacienteEncontrado.apellidos}</th>
                                 <button className='boton-paciente text-center' onClick={crearHrv()}>Crear HRV <i class="bi bi-plus-lg"></i></button>
-                                <Link to={"/editarPaciente/" + pacienteEncontrado.numDoc} className="d-flex"><td className='boton-paciente text-center'>Editar <i class="bi bi-pencil-fill"></i></td></Link>
+                                <Link to={"/editarPaciente/" + pacienteEncontrado.numDoc}><td className='boton-paciente text-center'>Editar <i class="bi bi-pencil-fill"></i></td></Link>
                             </tr>
                         </tbody>
                     </table>

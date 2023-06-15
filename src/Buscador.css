@@ -95,19 +95,25 @@
   font-size: 18px;
 }
 
-.fa-solid, .fas{
+.fa-solid,
+.fas {
   font-size: 25px;
 }
 
-.buscador-container .buscador-content .table>thead{
+.buscador-container .buscador-content .table>thead {
   color: #0000007c;
 }
 
-.buscador-container .buscador-content .table>tbody{
+.buscador-container .buscador-content .table>tbody {
   background-color: #ffffff;
 }
 
-.boton-paciente{
+.boton-paciente {
   color: #52bcc9;
   font-weight: 700;
+  border: none;
+}
+
+.bbw {
+  border-bottom-width: 0px;
 }

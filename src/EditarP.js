@@ -61,13 +61,8 @@ export default function EditarP() {
             }
 
             const docData = {
-                tipoDoc: tipoDoc,
-                numDoc: numDoc,
                 email: pacEmail,
                 empre: pacEmpre,
-                fecNac: pacFecNac,
-                nombres: pacNombre,
-                apellidos: pacApe,
                 telefono: pacTelef,
                 perfil: pacPerfil,
                 visitas: paciente.visitas
@@ -112,25 +107,27 @@ export default function EditarP() {
                             onChange={(event) => {
                                 setPacEmail(event.target.value);
                             }}
-                        />
+                        /><br />
                         <input
+                            readOnly
                             type="text"
                             placeholder="Ingrese sus nombres..."
-                            className="form-control mt-3"
+                            className="form-control"
                             value={pacNombre}
                             onChange={(event) => {
                                 setPacNombre(event.target.value);
                             }}
-                        />
+                        /><br />
                         <input
+                            readOnly
                             type="text"
                             placeholder="Ingrese sus apellidos..."
-                            className="form-control mt-3"
+                            className="form-control "
                             value={pacApe}
                             onChange={(event) => {
                                 setPacApe(event.target.value);
                             }}
-                        />
+                        /><br />
                         <div className="row-display">
                             <div className="w-100">
                                 Perfil
@@ -150,13 +147,14 @@ export default function EditarP() {
                                     </select>
                                 </div>
                             </div>
-                        </div>
+                        </div><br />
 
-                        <div className="row-display">
+                         <div className="row-display"> 
                             <div className="w-5">
                                 Documento
                                 <div className="select-tipoDoc">
                                     <select
+                                        disabled
                                         className="form-select"
                                         aria-label="Default select example"
                                         value={tipoDoc}
@@ -173,6 +171,7 @@ export default function EditarP() {
                             </div>
                             <div className="w-80">
                                 <input
+                                    readOnly
                                     type="text"
                                     placeholder="Ingrese num doc..."
                                     className="form-control mt-4"
@@ -185,12 +184,13 @@ export default function EditarP() {
                                     }}
                                 />
                             </div>
-                        </div>
+                        </div><br />
 
                         <div className="row-display">
                             <div className="w-47">
                                 F. Nacimiento
                                 <input
+                                    readOnly
                                     type="date"
                                     className="form-control"
                                     value={pacFecNac}
@@ -212,11 +212,11 @@ export default function EditarP() {
                                     }}
                                 />
                             </div>
-                        </div>
+                        </div><br />
                         <input
                             type="text"
                             placeholder="Ingrese nombre de su empresa..."
-                            className="form-control mt-3"
+                            className="form-control "
                             value={pacEmpre}
                             onChange={(event) => {
                                 setPacEmpre(event.target.value);

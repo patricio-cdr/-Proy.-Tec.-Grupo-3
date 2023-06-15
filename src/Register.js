@@ -182,40 +182,39 @@ export default function Register() {
                             required
                             pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
                             title="Por favor, ingrese un email válido"
-                        />
+                        /><br />
                         <input
                             type="password"
                             placeholder="Ingrese una contraseña..."
-                            className="form-control mt-3"
+                            className="form-control "
                             onChange={(event) => {
                                 setRegisterPassword(event.target.value);
                             }}
                             required
                             minLength={6}
-                        />
+                        /><br />
                         <input
                             type="text"
                             placeholder="Ingrese sus nombres..."
-                            className="form-control mt-3"
+                            className="form-control "
                             value={registerNames}
                             onChange={(event) => {
                                 setRegisterNames(event.target.value);
                             }}
                             required
                             minLength={3}
-                        />
+                        /><br />
                         <input
                             type="text"
                             placeholder="Ingrese sus apellidos..."
-                            className="form-control mt-3"
+                            className="form-control "
                             value={registerLastnames}
                             onChange={(event) => {
                                 setRegisterLastnames(event.target.value);
                             }}
                             required
                             minLength={3}
-                        />
-                        <br />
+                        /><br />
                         <div className="row-display">
                             <div>
                                 Fecha de nacimiento
@@ -243,7 +242,7 @@ export default function Register() {
                                     required
                                 />
                             </div>
-                        </div>
+                        </div><br />
                         <div className="d-flex justify-content-center">
                             <div className="row-display flex-column">
                                 Doctor

@@ -163,3 +163,21 @@ a{
 a:hover{
   color: #000000;
 }
+
+.button-play {
+  box-sizing: border-box;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 15px 0 15px 25px;
+  border-color: white white white lightgreen;
+  cursor: pointer;
+}
+
+.button-stop {
+  width: 25px;
+  height: 25px;
+  background-color: red;
+  border: none;
+  cursor: pointer;
+}

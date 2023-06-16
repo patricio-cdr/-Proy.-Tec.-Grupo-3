@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Buscador.css";
 import { Link } from "react-router-dom";
 import { auth, db } from "./firebase-config";
@@ -79,6 +79,29 @@ export default function Buscador() {
     }
   };
 
+  const [isRecepcionista, setIsRecepcionista] = useState(false);
+  useEffect(() => {
+    getRecepcionista().then((result) => {
+      setIsRecepcionista(result);
+    });
+  }, []);
+
+  const getRecepcionista = async () => {
+    const recepcionistaSnapshot = await getDocs(
+      collection(db, "recepcionista")
+    );
+    const currentUserUID = auth.currentUser.uid;
+
+    let isRecepcionista = false;
+    recepcionistaSnapshot.forEach((doc) => {
+      const recepcionistaUID = doc.data().uid;
+      if (recepcionistaUID === currentUserUID) {
+        isRecepcionista = true;
+      }
+    });
+    return isRecepcionista;
+  };
+
   const handleInputChange = (event) => {
     setSearchDNI(event.target.value);
   };
@@ -89,9 +112,11 @@ export default function Buscador() {
         <Link to="/">
           <button className="boton-regresar">Regresar</button>
         </Link>
-        <Link to="/nuevopaciente">
-          <button className="boton-nuevo-paciente">Nuevo paciente</button>
-        </Link>
+        {isRecepcionista && (
+          <Link to="/nuevopaciente">
+            <button className="boton-nuevo-paciente">Nuevo paciente</button>
+          </Link>
+        )}
       </div>
       <div className="buscador-content">
         <h2>Ingrese DNI del paciente</h2>
@@ -127,11 +152,13 @@ export default function Buscador() {
                 >
                   Crear HRV <i class="bi bi-plus-lg"></i>
                 </button>
-                <Link to={"/editarPaciente/" + pacienteEncontrado.numDoc}>
-                  <td className="boton-paciente text-center">
-                    Editar <i class="bi bi-pencil-fill"></i>
-                  </td>
-                </Link>
+                {isRecepcionista && (
+                  <Link to={"/editarPaciente/" + pacienteEncontrado.numDoc}>
+                    <td className="boton-paciente text-center">
+                      Editar <i class="bi bi-pencil-fill"></i>
+                    </td>
+                  </Link>
+                )}
               </tr>
             </tbody>
           </table>

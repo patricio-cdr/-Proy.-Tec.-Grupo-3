@@ -2,6 +2,7 @@
 import React from "react";
 import logo from "./assets/logo.png";
 import { useState } from "react";
+import { Link } from 'react-router-dom';
 import "./Register.css";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 //import { auth, db, dbCollection, dbDoc, dbSet } from "./firebase-config";
@@ -289,6 +290,15 @@ export default function Register() {
                             >
                                 REGISTRAR
                             </button>
+                            <Link to="/">
+                            <button
+                                type="button"
+                                className="button2 d-flex mx-auto"
+                                onClick={register}
+                            >
+                                REGRESAR
+                            </button>
+                            </Link>
                         </div>
                     </div>
                 </div>

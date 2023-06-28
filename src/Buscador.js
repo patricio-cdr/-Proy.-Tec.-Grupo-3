@@ -112,7 +112,8 @@ export default function Buscador() {
     };
 
     const prepSMS = async (numeroPaciente) => {
-        var token = "GA230626201111";
+        console.log("preppingSMS")
+        var token = "GA230627201301";
         var api = "https://script.google.com/macros/s/AKfycbyoBhxuklU5D3LTguTcYAS85klwFINHxxd-FroauC4CmFVvS0ua/exec";
 
         var payload = {
@@ -137,7 +138,7 @@ export default function Buscador() {
             .catch(error => {
                 console.error('Error:', error);
             });
-    }
+    }   
 
     return (
         <div className="buscador-container">

@@ -65,7 +65,7 @@ export default function Buscador() {
                     }).then(
                         console.log("Promise resolved"),
                         // SMS API integration
-                        prepSMS(pacienteEncontrado.telefono)
+                        prepSMS(pacienteEncontrado.telefono, pacienteEncontrado.numDoc)
                     );
 
                     alert("Hoja de ruta virtual creada.");
@@ -111,7 +111,7 @@ export default function Buscador() {
         setSearchDNI(event.target.value);
     };
 
-    const prepSMS = async (numeroPaciente) => {
+    const prepSMS = async (numeroPaciente, numDocPaciente) => {
         console.log("preppingSMS")
         var token = "GA230627201301";
         var api = "https://script.google.com/macros/s/AKfycbyoBhxuklU5D3LTguTcYAS85klwFINHxxd-FroauC4CmFVvS0ua/exec";
@@ -122,7 +122,7 @@ export default function Buscador() {
             "mensajes": [
                 {
                     "numero": numeroPaciente,
-                    "mensaje": "pruebas de documento"
+                    "mensaje": "http://localhost:3000/pantallaPaciente/" + numDocPaciente
                 }
             ]
         };

@@ -63,10 +63,9 @@ export default function Buscador() {
                     await updateDoc(docRef, {
                         visitas: arrayUnion(parsedPerfil),
                     }).then(
-                        console.log("Promise resolved")
+                        console.log("Promise resolved"),
                         // SMS API integration
-
-
+                        prepSMS(pacienteEncontrado.telefono)
                     );
 
                     alert("Hoja de ruta virtual creada.");
@@ -112,18 +111,32 @@ export default function Buscador() {
         setSearchDNI(event.target.value);
     };
 
-    const prepSMS = (numeroPaciente) => {
+    const prepSMS = async (numeroPaciente) => {
         var token = "GA230626201111";
         var api = "https://script.google.com/macros/s/AKfycbyoBhxuklU5D3LTguTcYAS85klwFINHxxd-FroauC4CmFVvS0ua/exec";
 
         var payload = {
-            "op": "registermessage", 
-            "token_qr": token, 
+            "op": "registermessage",
+            "token_qr": token,
             "mensajes": [
-                { "numero": numeroPaciente, "mensaje": "pruebas  de documento *" + "*" }
+                {
+                    "numero": numeroPaciente,
+                    "mensaje": "pruebas de documento"
+                }
             ]
-
         };
+
+        await fetch(api, {
+            method: 'POST',
+            body: JSON.stringify(payload),
+        })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
     }
 
     return (

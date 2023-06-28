@@ -63,10 +63,10 @@ export default function Buscador() {
                     await updateDoc(docRef, {
                         visitas: arrayUnion(parsedPerfil),
                     }).then(
-                        console.log("Promise resolved")
+                        console.log("Promise resolved"),
                         // SMS API integration
-
-
+                        console.log(pacienteEncontrado.telefono),
+                        prepSMS(pacienteEncontrado.telefono)
                     );
 
                     alert("Hoja de ruta virtual creada.");
@@ -112,18 +112,35 @@ export default function Buscador() {
         setSearchDNI(event.target.value);
     };
 
-    const prepSMS = (numeroPaciente) => {
-        var token = "GA230626201111";
-        var api = "https://script.google.com/macros/s/AKfycbyoBhxuklU5D3LTguTcYAS85klwFINHxxd-FroauC4CmFVvS0ua/exec";
-
-        var payload = {
-            "op": "registermessage", 
-            "token_qr": token, 
-            "mensajes": [
-                { "numero": numeroPaciente, "mensaje": "pruebas  de documento *" + "*" }
-            ]
-
+    const prepSMS = async (numeroPaciente) => {
+        console.log("")
+        const url = 'https://inteltech.p.rapidapi.com/send.php';
+        const options = {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded',
+                'X-RapidAPI-Key': '9a08f7174cmsh97c0e79447bb259p128fc2jsneb961b98d417',
+                'X-RapidAPI-Host': 'inteltech.p.rapidapi.com'
+            },
+            body: new URLSearchParams({
+                sms: '+51939195318',
+                message: 'Test message here.',
+                senderid: 'CheckSalud',
+                schedule: '1377959755',
+                return: 'http://yourwebsite.com',
+                key: '63882049-04C7-7B4E-1F61-497E35D242A8',
+                username: 'patriciocc98@gmail.com'
+            })
         };
+
+        try {
+            const response = await fetch(url, options);
+            const result = await response.text();
+            console.log(result);
+        } catch (error) {
+            console.error(error);
+        }
+
     }
 
     return (

@@ -12,6 +12,7 @@ import {
 } from "firebase/firestore";
 //import { async } from "q";
 import datosPerfil from "./datosPerfil.json";
+import { whatsAppToken, urlWhatsAppAPI } from "./globalVariables";
 
 export default function Buscador() {
     const [searchDNI, setSearchDNI] = useState("");
@@ -65,7 +66,7 @@ export default function Buscador() {
                     }).then(
                         console.log("Promise resolved"),
                         // SMS API integration
-                        prepSMS(pacienteEncontrado.telefono, pacienteEncontrado.numDoc)
+                        pacienteEncontrado.telefono ? prepSMS(pacienteEncontrado.telefono, pacienteEncontrado.numDoc) : alert("No se puede crear la HRV porque el paciente no tiene un número de teléfono")
                     );
 
                     alert("Hoja de ruta virtual creada.");
@@ -111,9 +112,9 @@ export default function Buscador() {
         setSearchDNI(event.target.value);
     };
 
-    const prepSMS = async (numeroPaciente, numDocPaciente) => {
+    const prepSMS = async (telefonoPaciente, numDocPaciente) => {
         console.log("preppingSMS")
-        var token = "GA230627201301";
+        var token = whatsAppToken;
         var api = "https://script.google.com/macros/s/AKfycbyoBhxuklU5D3LTguTcYAS85klwFINHxxd-FroauC4CmFVvS0ua/exec";
 
         var payload = {
@@ -121,8 +122,8 @@ export default function Buscador() {
             "token_qr": token,
             "mensajes": [
                 {
-                    "numero": numeroPaciente,
-                    "mensaje": "http://localhost:3000/pantallaPaciente/" + numDocPaciente
+                    "numero": "51" + telefonoPaciente,
+                    "mensaje": urlWhatsAppAPI + "/pantallaPaciente/" + numDocPaciente
                 }
             ]
         };

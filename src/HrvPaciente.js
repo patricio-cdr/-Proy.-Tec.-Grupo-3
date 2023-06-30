@@ -22,6 +22,7 @@ export default function HrvPaciente() {
     const navigate = useNavigate();
 
     const buscarPaciente = async () => {
+        console.log("Volvio a entrar a funciojn buscarPaciente")
         const docRef = doc(db, "pacientes", searchDNI);
         setPacienteDocRef(docRef);
         const docSnap = await getDoc(docRef);
@@ -59,6 +60,7 @@ export default function HrvPaciente() {
     };
 
     const insertarHoraPara = (examenNombre, accion) => async () => {
+        await loadPatientData();
         try {
             const docSnap = (await getDoc(pacienteDocRef)).data();
 
@@ -73,21 +75,10 @@ export default function HrvPaciente() {
                             let pacienteActualizar = pacienteEncontrado;
 
                             if (accion === "horaSalida") {
-                                pacienteActualizar.visitas[visitaIndex].examenes[
-                                    examenIndex
-                                ].atendidoPor = auth.currentUser.uid;
-                                pacienteActualizar.visitas[visitaIndex].examenes[
-                                    examenIndex
-                                ].horaSalida = new Date(Date.now()).toLocaleString();
-                                pacienteActualizar.visitas[visitaIndex].examenes[
-                                    examenIndex
-                                ].horaIngreso =
-                                    docSnap.visitas[visitaIndex].examenes[
-                                        examenIndex
-                                    ].horaIngreso;
-                                pacienteActualizar.visitas[visitaIndex].examenes[
-                                    examenIndex
-                                ].completado = true;
+                                pacienteActualizar.visitas[visitaIndex].examenes[examenIndex].atendidoPor = auth.currentUser.uid;
+                                pacienteActualizar.visitas[visitaIndex].examenes[examenIndex].horaSalida = new Date(Date.now()).toLocaleString();
+                                pacienteActualizar.visitas[visitaIndex].examenes[examenIndex].horaIngreso = docSnap.visitas[visitaIndex].examenes[examenIndex].horaIngreso;
+                                pacienteActualizar.visitas[visitaIndex].examenes[examenIndex].completado = true;
 
                                 let pacienteActualizado = JSON.parse(
                                     JSON.stringify(pacienteActualizar)
@@ -98,19 +89,13 @@ export default function HrvPaciente() {
                                     pacienteActualizado
                                 );
                                 alert("Paciente actualizado con éxito.");
-                            } else {
-                                pacienteActualizar.visitas[visitaIndex].examenes[
-                                    examenIndex
-                                ].atendidoPor = auth.currentUser.uid;
-                                pacienteActualizar.visitas[visitaIndex].examenes[
-                                    examenIndex
-                                ].horaSalida = "";
-                                pacienteActualizar.visitas[visitaIndex].examenes[
-                                    examenIndex
-                                ].horaIngreso = new Date(Date.now()).toLocaleString();
-                                pacienteActualizar.visitas[visitaIndex].examenes[
-                                    examenIndex
-                                ].completado = false;
+
+                            } else if (accion === "horaIngreso"){
+                                pacienteActualizar.visitas[visitaIndex].examenes[examenIndex].atendidoPor = auth.currentUser.uid;
+                                pacienteActualizar.visitas[visitaIndex].examenes[examenIndex].horaSalida = "";
+                                pacienteActualizar.visitas[visitaIndex].examenes[examenIndex].horaIngreso = new Date(Date.now()).toLocaleString();
+                                pacienteActualizar.visitas[visitaIndex].examenes[examenIndex].completado = false;
+
                                 console.log("Hizo click en hora ingreso ");
 
                                 let pacienteActualizado = JSON.parse(
@@ -122,7 +107,9 @@ export default function HrvPaciente() {
                                     pacienteActualizado
                                 );
                                 alert("Paciente actualizado con éxito.");
+                                
                             }
+
                         }
                     });
                 }
@@ -291,6 +278,20 @@ export default function HrvPaciente() {
             console.log(result);
         } catch (error) {
             console.error(error);
+        }
+    }
+
+    const loadPatientData = async () => {
+        try {
+            const docSnap = (await getDoc(pacienteDocRef)).data();
+
+            if (docSnap.exists()) {
+                console.log("Load patient Data:", docSnap.data());
+            }
+    
+
+        } catch (error) {
+            
         }
     }
 

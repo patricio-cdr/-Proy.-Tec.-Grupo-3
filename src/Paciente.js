@@ -30,14 +30,20 @@ export default function Paciente() {
 
             const paciente = docSnap.data();
             setPacienteEncontrado(paciente);
-            if(paciente.perfil=="OPE-1"){
-                document.querySelector("#oftalmologia").style.fill = "#52bcc991";
-                document.querySelector("#triaje").style.fill = "#52bcc991";
-                document.querySelector("#cardiologia").style.fill = "#52bcc991";
-            }
             paciente.visitas.forEach((visita) => {
                 if (visita.visitaTerminada === false) {
                     setListaExamen(visita.examenes);
+                    visita.examenes.forEach((examen)=>{
+                        if(examen.completado===false){
+                            switch(examen.nombre){
+                                case "oftalmo": return document.querySelector("#oftalmologia").style.fill = "#52bcc991";
+                                case "triaje" : return document.querySelector("#triaje").style.fill = "#52bcc991";
+                                case "ekg" : return document.querySelector("#cardiologia").style.fill = "#52bcc991";
+                            default: return null;
+                            }
+                        }
+                    })
+                    
                     console.log("Lista examenes:", listaExamen);
                 }
             });
@@ -98,6 +104,7 @@ export default function Paciente() {
                     </table>
                 </div>
                 <div className="tab-pane fade" id="pills-mapa" role="tabpanel" aria-labelledby="pills-mapa-tab" tabIndex="0">
+                    
                     <Mapa className='d-flex w-100 mx-auto'></Mapa>
                 </div>
             </div>

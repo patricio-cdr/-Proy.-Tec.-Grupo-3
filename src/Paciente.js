@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from 'react';
 import completo from "./assets/completo.png";
 import incompleto from "./assets/incompleto.png";
-
+import { ReactComponent as Mapa} from './assets/hospital-map.svg';
 
 
 export default function Paciente() {
@@ -30,10 +30,20 @@ export default function Paciente() {
 
             const paciente = docSnap.data();
             setPacienteEncontrado(paciente);
-
             paciente.visitas.forEach((visita) => {
                 if (visita.visitaTerminada === false) {
                     setListaExamen(visita.examenes);
+                    visita.examenes.forEach((examen)=>{
+                        if(examen.completado===false){
+                            switch(examen.nombre){
+                                case "oftalmo": return document.querySelector("#oftalmologia").style.fill = "#52bcc991";
+                                case "triaje" : return document.querySelector("#triaje").style.fill = "#52bcc991";
+                                case "ekg" : return document.querySelector("#cardiologia").style.fill = "#52bcc991";
+                            default: return null;
+                            }
+                        }
+                    })
+                    
                     console.log("Lista examenes:", listaExamen);
                 }
             });
@@ -94,7 +104,8 @@ export default function Paciente() {
                     </table>
                 </div>
                 <div className="tab-pane fade" id="pills-mapa" role="tabpanel" aria-labelledby="pills-mapa-tab" tabIndex="0">
-                    MAPA CLINICA
+                    
+                    <Mapa className='d-flex w-100 mx-auto'></Mapa>
                 </div>
             </div>
             <ul className="nav nav-pills mb-3 d-flex justify-content-center mt-5 fw-semibold" id="pills-tab" role="tablist">

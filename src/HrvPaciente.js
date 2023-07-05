@@ -22,6 +22,7 @@ export default function HrvPaciente() {
     const navigate = useNavigate();
 
     const buscarPaciente = async () => {
+        console.log("Volvio a entrar a funcion buscarPaciente")
         const docRef = doc(db, "pacientes", searchDNI);
         setPacienteDocRef(docRef);
         const docSnap = await getDoc(docRef);
@@ -59,6 +60,7 @@ export default function HrvPaciente() {
     };
 
     const insertarHoraPara = (examenNombre, accion) => async () => {
+
         try {
             const docSnap = (await getDoc(pacienteDocRef)).data();
 
@@ -72,22 +74,15 @@ export default function HrvPaciente() {
                             let examenIndex = indexTwo;
                             let pacienteActualizar = pacienteEncontrado;
 
+                            let atendidoPorObj = await loadTecnicoData(auth.currentUser.uid)
+
                             if (accion === "horaSalida") {
-                                pacienteActualizar.visitas[visitaIndex].examenes[
-                                    examenIndex
-                                ].atendidoPor = auth.currentUser.uid;
-                                pacienteActualizar.visitas[visitaIndex].examenes[
-                                    examenIndex
-                                ].horaSalida = new Date(Date.now()).toLocaleString();
-                                pacienteActualizar.visitas[visitaIndex].examenes[
-                                    examenIndex
-                                ].horaIngreso =
-                                    docSnap.visitas[visitaIndex].examenes[
-                                        examenIndex
-                                    ].horaIngreso;
-                                pacienteActualizar.visitas[visitaIndex].examenes[
-                                    examenIndex
-                                ].completado = true;
+                                pacienteActualizar.visitas[visitaIndex].examenes[examenIndex].atendidoPorUid = auth.currentUser.uid;
+                                pacienteActualizar.visitas[visitaIndex].examenes[examenIndex].atendidoPorNombre = atendidoPorObj.nombres
+                                pacienteActualizar.visitas[visitaIndex].examenes[examenIndex].atendidoPorApellido = atendidoPorObj.apellidos;
+                                pacienteActualizar.visitas[visitaIndex].examenes[examenIndex].horaSalida = new Date(Date.now()).toLocaleString();
+                                pacienteActualizar.visitas[visitaIndex].examenes[examenIndex].horaIngreso = docSnap.visitas[visitaIndex].examenes[examenIndex].horaIngreso;
+                                pacienteActualizar.visitas[visitaIndex].examenes[examenIndex].completado = true;
 
                                 let pacienteActualizado = JSON.parse(
                                     JSON.stringify(pacienteActualizar)
@@ -98,19 +93,15 @@ export default function HrvPaciente() {
                                     pacienteActualizado
                                 );
                                 alert("Paciente actualizado con éxito.");
-                            } else {
-                                pacienteActualizar.visitas[visitaIndex].examenes[
-                                    examenIndex
-                                ].atendidoPor = auth.currentUser.uid;
-                                pacienteActualizar.visitas[visitaIndex].examenes[
-                                    examenIndex
-                                ].horaSalida = "";
-                                pacienteActualizar.visitas[visitaIndex].examenes[
-                                    examenIndex
-                                ].horaIngreso = new Date(Date.now()).toLocaleString();
-                                pacienteActualizar.visitas[visitaIndex].examenes[
-                                    examenIndex
-                                ].completado = false;
+
+                            } else if (accion === "horaIngreso") {
+                                pacienteActualizar.visitas[visitaIndex].examenes[examenIndex].atendidoPorUid = auth.currentUser.uid;
+                                pacienteActualizar.visitas[visitaIndex].examenes[examenIndex].atendidoPorNombre = atendidoPorObj.nombres
+                                pacienteActualizar.visitas[visitaIndex].examenes[examenIndex].atendidoPorApellido = atendidoPorObj.apellidos;
+                                pacienteActualizar.visitas[visitaIndex].examenes[examenIndex].horaSalida = "";
+                                pacienteActualizar.visitas[visitaIndex].examenes[examenIndex].horaIngreso = new Date(Date.now()).toLocaleString();
+                                pacienteActualizar.visitas[visitaIndex].examenes[examenIndex].completado = false;
+
                                 console.log("Hizo click en hora ingreso ");
 
                                 let pacienteActualizado = JSON.parse(
@@ -122,7 +113,9 @@ export default function HrvPaciente() {
                                     pacienteActualizado
                                 );
                                 alert("Paciente actualizado con éxito.");
+                                
                             }
+
                         }
                     });
                 }
@@ -294,6 +287,14 @@ export default function HrvPaciente() {
         }
     }
 
+    const loadTecnicoData = async (uid) => {
+    
+            const docRef = doc(db, "tecnico", uid);
+            const atendidoPorData = (await getDoc(docRef)).data();
+            console.log(atendidoPorData)
+            return atendidoPorData
+    }
+
     return (
         <div className="buscador-container" id="#hrv-paciente">
             <div className="botones-superiores">
@@ -345,7 +346,7 @@ export default function HrvPaciente() {
                             {listaExamen.map((examen, index) => (
                                 <tr key={index}>
                                     <td>{examen.nombre}</td>
-                                    <td>{examen.atendidoPor}</td>
+                                    <td>{examen.atendidoPorNombre + " " + examen.atendidoPorApellido}</td>
                                     <td></td>
                                     <td>{examen.horaIngreso}</td>
                                     <td>

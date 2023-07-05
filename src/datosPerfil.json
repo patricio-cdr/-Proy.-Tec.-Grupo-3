@@ -2,21 +2,27 @@
     "examenes": [
         {
             "nombre": "oftalmo",
-            "atendidoPor": "",
+            "atendidoPorUid": "",
+            "atendidoPorNombre": "",
+            "atendidoPorApellido": "",
             "completado": false,
             "horaIngreso": null,
             "horaSalida": null
         },
         {
             "nombre": "triaje",
-            "atendidoPor": "",
+            "atendidoPorUid": "",
+            "atendidoPorNombre": "",
+            "atendidoPorApellido": "",
             "completado": false,
             "horaIngreso": null,
             "horaSalida": null
         },
         {
             "nombre": "ekg",
-            "atendidoPor": "",
+            "atendidoPorUid": "",
+            "atendidoPorNombre": "",
+            "atendidoPorApellido": "",
             "completado": false,
             "horaIngreso": null,
             "horaSalida": null

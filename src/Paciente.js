@@ -36,9 +36,15 @@ export default function Paciente() {
                     visita.examenes.forEach((examen)=>{
                         if(examen.completado===false){
                             switch(examen.nombre){
-                                case "oftalmo": return document.querySelector("#oftalmologia").style.fill = "#52bcc991";
+                                case "oftalmologia": return document.querySelector("#oftalmologia").style.fill = "#52bcc991";
                                 case "triaje" : return document.querySelector("#triaje").style.fill = "#52bcc991";
-                                case "ekg" : return document.querySelector("#cardiologia").style.fill = "#52bcc991";
+                                case "cardiologia" : return document.querySelector("#cardiologia").style.fill = "#52bcc991";
+                                case "radiologia" : return document.querySelector("#radiologia").style.fill = "#52bcc991";
+                                case "medicina general" : return document.querySelector("#medicinageneral").style.fill = "#52bcc991";
+                                case "odontologia" : return document.querySelector("#odontologia").style.fill = "#52bcc991";
+                                case "laboratorio" : return document.querySelector("#laboratorio").style.fill = "#52bcc991";
+                                case "psiquiatria" : return document.querySelector("#psiquiatria").style.fill = "#52bcc991";
+                                case "psicologia" : return document.querySelector("#psicologia").style.fill = "#52bcc991";
                             default: return null;
                             }
                         }

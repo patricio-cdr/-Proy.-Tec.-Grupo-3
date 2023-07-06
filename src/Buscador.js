@@ -113,29 +113,29 @@ export default function Buscador() {
     };
 
     const prepSMS = async (telefonoPaciente, numDocPaciente) => {
-        // const url = 'https://inteltech.p.rapidapi.com/send.php';
-        // const options = {
-        //     method: 'POST',
-        //     headers: {
-        //         'content-type': 'application/x-www-form-urlencoded',
-        //         'X-RapidAPI-Key': '9a08f7174cmsh97c0e79447bb259p128fc2jsneb961b98d417',
-        //         'X-RapidAPI-Host': 'inteltech.p.rapidapi.com'
-        //     },
-        //     body: new URLSearchParams({
-        //         sms: "51" + telefonoPaciente,
-        //         message: hostUrl + "/pantallaPaciente/" + numDocPaciente,
-        //         key: '63882049-04C7-7B4E-1F61-497E35D242A8',
-        //         username: 'patriciocc98@gmail.com'
-        //     })
-        // };
+        const url = 'https://inteltech.p.rapidapi.com/send.php';
+        const options = {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded',
+                'X-RapidAPI-Key': '9a08f7174cmsh97c0e79447bb259p128fc2jsneb961b98d417',
+                'X-RapidAPI-Host': 'inteltech.p.rapidapi.com'
+            },
+            body: new URLSearchParams({
+                sms: "51" + telefonoPaciente,
+                message: hostUrl + "/pantallaPaciente/" + numDocPaciente,
+                key: '63882049-04C7-7B4E-1F61-497E35D242A8',
+                username: 'patriciocc98@gmail.com'
+            })
+        };
 
-        // try {
-        //     const response = await fetch(url, options);
-        //     const result = await response.text();
-        //     console.log(result);
-        // } catch (error) {
-        //     console.error(error);
-        // }
+        try {
+            const response = await fetch(url, options);
+            const result = await response.text();
+            console.log(result);
+        } catch (error) {
+            console.error(error);
+        }
     }
     
 

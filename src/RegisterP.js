@@ -8,6 +8,7 @@ import { doc, setDoc, Timestamp } from "firebase/firestore";
 import { Link } from "react-router-dom";
 import datosPerfil from './datosPerfil.json'
 import { useNavigate } from "react-router-dom";
+import { hostUrl } from "./globalVariables";
 
 
 export default function RegisterP() {
@@ -65,11 +66,42 @@ export default function RegisterP() {
             console.log(docData);
             await setDoc(doc(db, "pacientes", numDoc), docData);
             alert("Paciente registrado con exito.");
+
+            await prepSMS(pacTelef, numDoc)
+
+            alert("HRV enviada");
+
             navigate("/buscador");
         } catch (error) {
             alert(error.message);
         }
     };
+
+    const prepSMS = async (telefonoPaciente, numDocPaciente) => {
+        const url = 'https://inteltech.p.rapidapi.com/send.php';
+        const options = {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded',
+                'X-RapidAPI-Key': '9a08f7174cmsh97c0e79447bb259p128fc2jsneb961b98d417',
+                'X-RapidAPI-Host': 'inteltech.p.rapidapi.com'
+            },
+            body: new URLSearchParams({
+                sms: "51" + telefonoPaciente,
+                message: hostUrl + "/pantallaPaciente/" + numDocPaciente,
+                key: '63882049-04C7-7B4E-1F61-497E35D242A8',
+                username: 'patriciocc98@gmail.com'
+            })
+        };
+
+        try {
+            const response = await fetch(url, options);
+            const result = await response.text();
+            console.log(result);
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     return (
         <section id="registerP" className="container mx-auto">

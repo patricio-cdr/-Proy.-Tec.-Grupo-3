@@ -93,6 +93,7 @@ export default function HrvPaciente() {
                                     pacienteActualizado
                                 );
                                 alert("Paciente actualizado con éxito.");
+                                await buscarPaciente()
 
                             } else if (accion === "horaIngreso") {
                                 pacienteActualizar.visitas[visitaIndex].examenes[examenIndex].atendidoPorUid = auth.currentUser.uid;
@@ -113,7 +114,7 @@ export default function HrvPaciente() {
                                     pacienteActualizado
                                 );
                                 alert("Paciente actualizado con éxito.");
-                                
+                                await buscarPaciente()
                             }
 
                         }
@@ -253,11 +254,12 @@ export default function HrvPaciente() {
         } else if (smsSent) {
             alert("Ya se envió un SMS.")
             return
-        } else {
-            setSmsSent(true)
-            console.log("preppingSMS")
-            return
-        }
+        } 
+        // else {
+        //     setSmsSent(true)
+        //     console.log("preppingSMS")
+        //     return
+        // }
 
         console.log("preppingSMS")
         setSmsSent(true)
@@ -288,7 +290,6 @@ export default function HrvPaciente() {
     }
 
     const loadTecnicoData = async (uid) => {
-    
             const docRef = doc(db, "tecnico", uid);
             const atendidoPorData = (await getDoc(docRef)).data();
             console.log(atendidoPorData)

@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import completo from "./assets/completo.png";
 import incompleto from "./assets/incompleto.png";
 import { ReactComponent as Mapa} from './assets/hospital-map.svg';
+import Loader from './Loader.js';
 
 
 export default function Paciente() {
@@ -88,6 +89,7 @@ export default function Paciente() {
 
     return (
         <section id='pantalla-paciente' className='container mx-auto mt-5'>
+            <Loader/>
             <h2>Hola </h2>
             <div className="tab-content" id="pills-tabContent">
                 <div className="tab-pane fade show active" id="pills-examen" role="tabpanel" aria-labelledby="pills-examen-tab" tabIndex="0">

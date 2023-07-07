@@ -4,15 +4,20 @@ import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import "./Login.css";
 import { auth } from "./firebase-config";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Loader from './Loader.js';
 
 const Login = (props) => {
+  
   //Variables para registrar e iniciar sesion
   //const [registerEmail, setRegisterEmail] = useState("");
   //const [registerPassword, setRegisterPassword] = useState("");
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [error, setError] = useState('');
+
+
 
   // const register = async () => {
   //     try {
@@ -66,6 +71,7 @@ const Login = (props) => {
   };
 
   const login = async () => {
+    
     let attempts = 5; // Número máximo de intentos
     setError('');
     try {
@@ -94,8 +100,12 @@ const Login = (props) => {
     }
   };
 
+    
+
+
   return (
     <section id="login" className="container mx-auto">
+      <Loader/>
       <div className="pt-5 pb-5">
         <div className="form mx-auto">
           <h2 className="position-relative text-center title">CLINICA</h2>
@@ -126,14 +136,21 @@ const Login = (props) => {
                 setLoginPassword(event.target.value);
               }}
             />
+            
+                
+           
             <div className="row-display buttons">
+            
+            
               <div className="register-button">
-                <Link to="/register">
+              <Link to="/register">
                   <button id="register-button" className="button2">
                     REGISTRAR
                   </button>
-                </Link>
+                  </Link>
+
               </div>
+              
               <div className="login-button">
                 <button id="login-button" className="button1" onClick={login}>
                   LOGIN
@@ -145,5 +162,8 @@ const Login = (props) => {
       </div>
     </section>
   );
-};
+           
+}     
+  
+
 export default Login;

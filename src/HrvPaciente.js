@@ -8,6 +8,7 @@ import "./HrvPaciente.css";
 import { auth } from "./firebase-config";
 import { useNavigate } from "react-router-dom";
 import { whatsAppToken, hostUrl } from "./globalVariables";
+import Loader from './Loader.js';
 
 export default function HrvPaciente() {
     const [searchDNI, setSearchDNI] = useState("");
@@ -298,6 +299,7 @@ export default function HrvPaciente() {
 
     return (
         <div className="buscador-container" id="#hrv-paciente">
+            <Loader/>
             <div className="botones-superiores">
                 <Link to="/">
                     <button className="boton-regresar">Regresar</button>

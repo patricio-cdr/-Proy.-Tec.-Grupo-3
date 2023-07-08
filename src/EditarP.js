@@ -6,6 +6,7 @@ import './EditarP.css';
 import { useParams } from 'react-router-dom'
 import { useNavigate } from "react-router-dom";
 import { useEffect } from 'react';
+import Loader from './Loader.js';
 
 export default function EditarP() {
     const [paciente, setPaciente] = useState([]);
@@ -88,6 +89,7 @@ export default function EditarP() {
 
     return (
         <section id="editP" className="container mx-auto">
+            <Loader/>
             <div className="botones-superiores">
                 <Link to="/buscador">
                     <button className="boton-regresar">Regresar</button>

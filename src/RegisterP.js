@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import datosPerfil from './datosPerfil.json'
 import { useNavigate } from "react-router-dom";
 import { hostUrl } from "./globalVariables";
+import Loader from './Loader.js';
 
 
 export default function RegisterP() {
@@ -105,6 +106,7 @@ export default function RegisterP() {
 
     return (
         <section id="registerP" className="container mx-auto">
+            <Loader/>
             <div className="botones-superiores">
                 <Link to="/buscador">
                     <button className="boton-regresar">Regresar</button>

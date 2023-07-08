@@ -9,8 +9,11 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "./firebase-config";
 import { useNavigate } from "react-router-dom";
 import { doc, setDoc } from "firebase/firestore";
+import 'bootstrap/dist/css/bootstrap.min.css'
+import Loader from './Loader.js';
 
 export default function Register() {
+    const [loader, setLoading] = useState(false);
     const [registerNames, setRegisterNames] = useState("");
     const [registerLastnames, setRegisterLastnames] = useState("");
     const [registerBirth, setRegisterBirth] = useState("");
@@ -25,6 +28,9 @@ export default function Register() {
 
     const navigate = useNavigate();
 
+        
+        
+        
     const register = async () => {
         try {
             const userCredential = await createUserWithEmailAndPassword(
@@ -107,6 +113,8 @@ export default function Register() {
         return null;
     };
 
+    
+
     const selectTecnico = () => {
         if (selectedOption === "tecnico") {
             return (
@@ -160,7 +168,9 @@ export default function Register() {
     };
 
     return (
+        
         <section id="register" className="container mx-auto">
+            <Loader/>
             <div className="pt-5 pb-5">
                 <div className="form mx-auto">
                     <h2 className="position-relative text-center title">Regístrate</h2>
@@ -305,4 +315,9 @@ export default function Register() {
             </div>
         </section>
     );
+            
+                                
+                                
 }
+
+

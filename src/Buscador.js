@@ -13,6 +13,7 @@ import {
 //import { async } from "q";
 import datosPerfil from "./datosPerfil.json";
 import { whatsAppToken, hostUrl } from "./globalVariables";
+import Loader from './Loader.js';
 
 export default function Buscador() {
     const [searchDNI, setSearchDNI] = useState("");
@@ -140,7 +141,9 @@ export default function Buscador() {
     
 
     return (
+        
         <div className="buscador-container">
+            <Loader/>
             <div className="botones-superiores">
                 <Link to="/">
                     <button className="boton-regresar">Regresar</button>

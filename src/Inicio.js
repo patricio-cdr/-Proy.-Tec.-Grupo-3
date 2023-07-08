@@ -4,6 +4,7 @@ import logo from './assets/logo.png';
 import './Login.css';
 import { auth } from './firebase-config';
 import { Link } from "react-router-dom";
+import Loader from './Loader.js';
 
 function Inicio() {
 
@@ -13,6 +14,7 @@ function Inicio() {
 
   return (
     <section id='inicio-box' className='container  py-5 px-5'>
+        <Loader/>
         <div className="log-out-box text-end">
             <button onClick={signOut} type='button' id="log-out" className='btn-logout'>Cerrar sesion</button>
         </div>

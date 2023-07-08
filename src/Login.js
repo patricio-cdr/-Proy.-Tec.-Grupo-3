@@ -7,8 +7,11 @@ import { auth } from "./firebase-config";
 import { Link, NavLink } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Loader from './Loader.js';
+import useEffect from "react";
+import onKeyPress from "react";
 
 const Login = (props) => {
+  
   
   //Variables para registrar e iniciar sesion
   //const [registerEmail, setRegisterEmail] = useState("");
@@ -47,6 +50,10 @@ const Login = (props) => {
         }
     };
 */
+
+
+
+
   const validateForm = () => {
     if (!loginEmail || !loginPassword) {
       setError('Por favor, complete todos los campos.');
@@ -120,6 +127,7 @@ const Login = (props) => {
             {error && <p className="text-danger">{error}</p>}
             <input
               type="email"
+              
               placeholder="Ingrese su correo electrónico"
               className="form-control"
               value={loginEmail}
@@ -131,6 +139,12 @@ const Login = (props) => {
             <input
               type="password"
               placeholder="Ingrese su contraseña"
+              onKeyPress={(event) => {
+                if (event.key === "Enter") {
+                  login(event.target.value)
+                }
+              }}
+              
               className="form-control mt-3"
               onChange={(event) => {
                 setLoginPassword(event.target.value);

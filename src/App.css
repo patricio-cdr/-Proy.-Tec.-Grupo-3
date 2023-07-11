@@ -164,20 +164,31 @@ a:hover{
   color: #000000;
 }
 
-.button-play {
-  box-sizing: border-box;
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 15px 0 15px 25px;
-  border-color: white white white lightgreen;
+.button-start {
+  width: 60px;
+  height: 30px;
+  background-color: green;
+  color: white;
+  font-weight: bold;
+  border: none;
   cursor: pointer;
 }
 
 .button-stop {
-  width: 25px;
-  height: 25px;
+  width: 75px;
+  height: 30px;
   background-color: red;
+  color: white;
+  font-weight: bold;
   border: none;
   cursor: pointer;
+}
+
+.button-restart {
+  width: 80px;
+  height: 30px;
+  background-color: #52BCC9;
+  color: white;
+  font-weight: bold;
+  border: none;  
 }

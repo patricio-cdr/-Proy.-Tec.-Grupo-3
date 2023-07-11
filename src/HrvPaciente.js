@@ -8,6 +8,15 @@ import "./HrvPaciente.css";
 import { auth } from "./firebase-config";
 import { useNavigate } from "react-router-dom";
 import { whatsAppToken, hostUrl } from "./globalVariables";
+import swal from "sweetalert";
+
+const startMessage = (message) => {
+    swal({
+      text: message,
+      icon: 'success',
+      button: 'Aceptar'
+    });
+  };
 
 export default function HrvPaciente() {
     const [searchDNI, setSearchDNI] = useState("");
@@ -78,7 +87,7 @@ export default function HrvPaciente() {
 
                             if (accion === "horaSalida") {
                                 pacienteActualizar.visitas[visitaIndex].examenes[examenIndex].atendidoPorUid = auth.currentUser.uid;
-                                pacienteActualizar.visitas[visitaIndex].examenes[examenIndex].atendidoPorNombre = atendidoPorObj.nombres
+                                pacienteActualizar.visitas[visitaIndex].examenes[examenIndex].atendidoPorNombre = atendidoPorObj.nombres;
                                 pacienteActualizar.visitas[visitaIndex].examenes[examenIndex].atendidoPorApellido = atendidoPorObj.apellidos;
                                 pacienteActualizar.visitas[visitaIndex].examenes[examenIndex].horaSalida = new Date(Date.now()).toLocaleString();
                                 pacienteActualizar.visitas[visitaIndex].examenes[examenIndex].horaIngreso = docSnap.visitas[visitaIndex].examenes[examenIndex].horaIngreso;
@@ -92,12 +101,13 @@ export default function HrvPaciente() {
                                     doc(db, "pacientes", searchDNI),
                                     pacienteActualizado
                                 );
-                                alert("Paciente actualizado con éxito.");
+                                //alert("Paciente actualizado con éxito.");
+                                startMessage('Examen Finalizado.');
                                 await buscarPaciente()
 
                             } else if (accion === "horaIngreso") {
                                 pacienteActualizar.visitas[visitaIndex].examenes[examenIndex].atendidoPorUid = auth.currentUser.uid;
-                                pacienteActualizar.visitas[visitaIndex].examenes[examenIndex].atendidoPorNombre = atendidoPorObj.nombres
+                                pacienteActualizar.visitas[visitaIndex].examenes[examenIndex].atendidoPorNombre = atendidoPorObj.nombres;
                                 pacienteActualizar.visitas[visitaIndex].examenes[examenIndex].atendidoPorApellido = atendidoPorObj.apellidos;
                                 pacienteActualizar.visitas[visitaIndex].examenes[examenIndex].horaSalida = "";
                                 pacienteActualizar.visitas[visitaIndex].examenes[examenIndex].horaIngreso = new Date(Date.now()).toLocaleString();
@@ -113,7 +123,8 @@ export default function HrvPaciente() {
                                     doc(db, "pacientes", searchDNI),
                                     pacienteActualizado
                                 );
-                                alert("Paciente actualizado con éxito.");
+                                //alert("Paciente actualizado con éxito.");
+                                startMessage('Examen iniciado.');
                                 await buscarPaciente()
                             }
 
@@ -353,7 +364,7 @@ export default function HrvPaciente() {
                                     <td>
                                         {!isRecepcionista && (
                                             <button
-                                                className="editbtn"
+                                                className="button-start"
                                                 onClick={insertarHoraPara(examen.nombre, "horaIngreso")}
                                             >
                                                 Iniciar
@@ -364,7 +375,7 @@ export default function HrvPaciente() {
                                     <td>
                                         {!isRecepcionista && (
                                             <button
-                                                className="editbtn"
+                                                className="button-stop"
                                                 onClick={insertarHoraPara(examen.nombre, "horaSalida")}
                                             >
                                                 Finalizar
@@ -374,7 +385,7 @@ export default function HrvPaciente() {
                                     <td>
                                         <button
                                             disabled="true"
-                                            className="editbtn"
+                                            className="button-restart"
                                             onClick={reiniciar(examen.nombre)}
                                         >
                                             Reiniciar

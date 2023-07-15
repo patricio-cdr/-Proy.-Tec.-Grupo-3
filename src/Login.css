@@ -4,8 +4,8 @@
 .inicio-box-title{
     align-items: center;
     height: 70vh;
-    justify-content: space-between;
 }
 .logo-img-inicio{
-    width: 45%;
+    width: 30%;
+    padding: 20px;
 }

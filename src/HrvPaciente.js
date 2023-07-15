@@ -36,8 +36,10 @@ export default function HrvPaciente() {
         setPacienteDocRef(docRef);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-            console.log("Document data:", docSnap.data());
 
+            console.log("Document data:", docSnap.data());
+            document.getElementsByClassName("hidden")[0].style.display="block";
+            document.getElementsByClassName("hidden")[1].style.display="flex";
             const paciente = docSnap.data();
             setPacienteEncontrado(paciente);
 
@@ -308,10 +310,10 @@ export default function HrvPaciente() {
     }
 
     return (
-        <div className="buscador-container" id="#hrv-paciente">
+        <div className="buscador-container container py-5 px-5" id="#hrv-paciente">
             <div className="botones-superiores">
                 <Link to="/">
-                    <button className="boton-regresar">Regresar</button>
+                <button className="btn-logout"> <i className="bi bi-chevron-left"></i>REGRESAR</button>
                 </Link>
             </div>
             <div className="buscador-content">
@@ -340,10 +342,10 @@ export default function HrvPaciente() {
                         <p>Fecha de nacimiento: {pacienteEncontrado.fecNac}</p>
                     </div>
                 )}
-                <div>
+                <div className="hidden">
                     <table className="table mt-4">
                         <thead>
-                            <tr>
+                            <tr className="text-center">
                                 <th scope="col">Examenes</th>
                                 <th scope="col">Atendido por</th>
                                 <th scope="col">Especificaciones</th>
@@ -356,7 +358,7 @@ export default function HrvPaciente() {
                         </thead>
                         <tbody>
                             {listaExamen.map((examen, index) => (
-                                <tr key={index}>
+                                <tr key={index} className="text-capitalize">
                                     <td>{examen.nombre}</td>
                                     <td>{examen.atendidoPorNombre + " " + examen.atendidoPorApellido}</td>
                                     <td></td>
@@ -402,8 +404,8 @@ export default function HrvPaciente() {
                     </span>
                 )}
             </div>
-            <div className="row-display buttons">
-                <button className="boton-regresar"
+            <div className="row-display buttons hidden">
+                <button className="btn-hrv"
                     onClick={prepSMS()}>REENVIAR HRV</button>
                 <button className="btn-buscar-p" onClick={terminarVisita()}>
                     TERMINAR VISITA

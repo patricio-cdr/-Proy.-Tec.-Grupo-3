@@ -1,16 +1,12 @@
 .buscador-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
   height: 100vh;
 }
 
 .botones-superiores {
   display: flex;
   justify-content: space-between;
-  margin-top: 50px;
-  margin-bottom: 50px;
-  width: 80%;
 }
 
 .boton-regresar {
@@ -55,7 +51,7 @@
   border-radius: 5px;
   padding: 5px;
   margin-top: 10px;
-  width: 95%;
+  width: 45%;
 }
 
 .input-container input {
@@ -116,4 +112,8 @@
 
 .bbw {
   border-bottom-width: 0px;
+}
+
+.bi-chevron-left{
+  font-size: 45px;
 }

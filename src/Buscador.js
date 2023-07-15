@@ -140,10 +140,10 @@ export default function Buscador() {
     
 
     return (
-        <div className="buscador-container">
+        <div className="buscador-container container py-5 px-5">
             <div className="botones-superiores">
                 <Link to="/">
-                    <button className="boton-regresar">Regresar</button>
+                    <button className="btn-logout"> <i className="bi bi-chevron-left"></i>REGRESAR</button>
                 </Link>
                 {isRecepcionista && (
                     <Link to="/nuevopaciente">
@@ -166,7 +166,7 @@ export default function Buscador() {
                     </div>
                 </div>
                 {pacienteEncontrado && (
-                    <table class="table mt-4 bbw">
+                    <table class="table mt-4 bbw w-50">
                         <thead>
                             <tr>
                                 <th scope="col">Paciente</th>

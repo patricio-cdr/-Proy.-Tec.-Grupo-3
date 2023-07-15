@@ -162,6 +162,10 @@ export default function Register() {
     return (
         <section id="register" className="container mx-auto">
             <div className="pt-5 pb-5">
+                <Link to="/">
+                    <button className="btn-logout"> <i className="bi bi-chevron-left"></i>REGRESAR</button>
+                </Link>
+
                 <div className="form mx-auto">
                     <h2 className="position-relative text-center title">Regístrate</h2>
                     <div className="mt-4 position-relative form-content">
@@ -290,15 +294,6 @@ export default function Register() {
                             >
                                 REGISTRAR
                             </button>
-                            <Link to="/">
-                            <button
-                                type="button"
-                                className="button2 d-flex mx-auto"
-                                onClick={register}
-                            >
-                                REGRESAR
-                            </button>
-                            </Link>
                         </div>
                     </div>
                 </div>

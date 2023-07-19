@@ -33,6 +33,8 @@ export default function Paciente() {
             paciente.visitas.forEach((visita) => {
                 if (visita.visitaTerminada === false) {
                     setListaExamen(visita.examenes);
+
+
                     visita.examenes.forEach((examen)=>{
                         if(examen.completado===false){
                             switch(examen.nombre){
@@ -75,7 +77,7 @@ export default function Paciente() {
         // Set up a snapshot listener for the document
         const unsubscribe = onSnapshot(docRef, (snapshot) => {
             // Update the state with the new data
-            setData(snapshot.data());
+            setPacienteEncontrado(snapshot.data());
             buscarPaciente()
         });
 

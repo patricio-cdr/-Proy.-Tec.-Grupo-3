@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Quieres ser mi San Valentín?</title>
+    <style>
+        body { font-family: Arial, sans-serif;
+             background-color: #f9f9f9;
+              padding: 20px;
+               text-align: center;
+             }
+        .container { 
+            background: pink; 
+            padding: 20px; 
+            border-radius: 10px; 
+            box-shadow: 0 0 10px rgba(0,0,0,0.1); 
+            max-width: 400px; margin: auto;
+         }
+        h1 { 
+            color: #333;
+         }
+        input, button {
+             padding: 10px; 
+             margin: 10px 0; 
+             width: 80%; 
+             border: 1px solid #ccc;
+              border-radius: 5px; 
+            }
+        button { 
+            background-color: #28a745;
+             color: white; 
+             border: none; 
+             cursor: pointer;
+             }
+        button:hover { 
+            background-color: #218838;
+         }
+        body{
+            background-image: url('https://saludconlupa.com/media/images/SanValentin.width-1920.jpg'); /* Cambia la URL por la de tu imagen */
+            background-size: cover; /* Ajusta la imagen para cubrir la pantalla */
+            background-position: center; /* Centra la imagen */
+            background-repeat: no-repeat; /* Evita que la imagen se repita */
+            height: 100vh; /* Ajusta la altura al 100% de la pantalla */
+            margin: 0;
+        }
+        #imagenRespuesta {
+            margin-top: 20px;
+            width: 200px;
+            height: auto;
+            border-radius: 10px;
+            display: none; /* Ocultar la imagen al inicio */
+            margin-left: 100px;
+        }
+        .content {
+            text-align: center;
+            color: white;
+            font-size: 24px;
+            font-family: Arial, sans-serif;
+            padding-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <audio autoplay >
+        <source src="Mp3/Corey Taylor - I'll Be Your Lover Too.mp3" type="audio/mpeg">
+    </audio>
+    <div class="container">
+        <h1 style="color: red;">¿Quieres ser mi San Valentín?</h1>
+        <p>Hola Dalita, te envío esta invitación para que pedirte por favor que seas mi Valentin este año. </p>
+        <input type="text" id="nombre" placeholder="¿Aceptarias?" required>
+        <button onclick="confirmarAsistencia()">Enviar</button>
+        <p id="respuesta" style="color: green; font-weight: bold;"></p>
+        <img id="imagenRespuesta" src="" alt="Respuesta">
+    </div>
+
+    <script>
+        function confirmarAsistencia() {
+            var nombre = document.getElementById('nombre').value.toLowerCase();
+            var mensaje = document.getElementById('respuesta');
+            var imagen = document.getElementById('imagenRespuesta');
+
+            if (["acepto", "si", "claro"].includes(nombre.toLowerCase())) {
+                mensaje.style.color = 'green';
+                mensaje.textContent = `¡Gracias por aceptar Dalita! Espero ese día con ansias :3 .`;
+                imagen.src ="https://play-lh.googleusercontent.com/1xja2rlBYxx464zli6R0CMrJp47s2syuKqbR6hCp3jaomo6COmiKQpU6gls4pZPeMfk";
+            } else {
+                mensaje.style.color = 'red';
+                mensaje.textContent = "Por favor, di que si :c";
+                imagen.src = "https://i.pinimg.com/originals/9a/a3/0b/9aa30b73c1a0fbdd04f121736ac36e34.jpg";
+                
+            }
+            imagen.style.display = 'block';
+        }
+    </script>
+
+</body>
+</html>

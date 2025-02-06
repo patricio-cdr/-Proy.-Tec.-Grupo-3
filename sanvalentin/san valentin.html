@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>¿Quieres ser mi San Valentín?</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            padding: 20px;
+            text-align: center;
+            background-image: url('https://saludconlupa.com/media/images/SanValentin.width-1920.jpg'); 
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat; 
+            height: 100vh; 
+            margin: 0;
+            transition: background-color 1s ease;
+        }
+
+        .container { 
+            background: pink; 
+            padding: 20px; 
+            border-radius: 10px; 
+            box-shadow: 0 0 10px rgba(0,0,0,0.1); 
+            max-width: 400px; 
+            margin: auto;
+            transition: transform 0.5s ease;
+        }
+
+        h1 { 
+            color: #333;
+        }
+
+        input, button {
+            padding: 10px; 
+            margin: 10px 0; 
+            width: 80%; 
+            border: 1px solid #ccc;
+            border-radius: 5px; 
+        }
+
+        button { 
+            background-color: #28a745;
+            color: white; 
+            border: none; 
+            cursor: pointer;
+        }
+
+        button:hover { 
+            background-color: #218838;
+        }
+
+        #imagenRespuesta {
+            margin-top: 20px;
+            width: 200px;
+            height: auto;
+            border-radius: 10px;
+            display: none; 
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .content {
+            text-align: center;
+            color: white;
+            font-size: 24px;
+            font-family: Arial, sans-serif;
+            padding-top: 50px;
+        }
+
+        /* Animaciones */
+        @keyframes zoomIn {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes shine {
+            0% { text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); }
+            50% { text-shadow: 0 0 20px rgba(255, 255, 255, 1); }
+            100% { text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+        }
+
+        @keyframes backgroundAccept {
+            from { background-color: #f9f9f9; }
+            to { background-color: rgba(255, 255, 255, 0.8); }
+        }
+
+        @keyframes backgroundReject {
+            from { background-color: #f9f9f9; }
+            to { background-color: #f8d7da; }
+        }
+
+        .animacion-acepta {
+            animation: zoomIn 0.5s ease-out, shine 1.5s infinite;
+        }
+
+        .animacion-rechaza {
+            animation: shake 0.5s;
+        }
+
+        .body-acepta::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHkzaDRqd2hmang3ZWFrODhuaTduNDFjY2xwOHhqNm12ZXh0MmE3eSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/TmT51OyQLFD7a/giphy.gif') center center / cover no-repeat;
+            opacity: 0.7;
+            z-index: -1;
+        }
+
+        .body-rechaza::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://i.gifer.com/PbVE.gif') center center / cover no-repeat;
+            opacity: 0.7;
+            z-index: -1;
+        }
+
+        .body-rechaza {
+            animation: backgroundReject 1s forwards;
+        }
+
+        .container-acepta {
+            transform: scale(1.05);
+        }
+
+        .container-rechaza {
+            transform: rotate(-2deg);
+        }
+    </style>
+</head>
+<body>
+    <audio autoplay>
+        <source src="Mp3/Corey Taylor - I'll Be Your Lover Too.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="container" id="container">
+        <h1 style="color: red;">¿Quieres ser mi San Valentín?</h1>
+        <p>Hola Dalita, te envío esta invitación para que pedirte por favor que seas mi Valentín este año.</p>
+        <input type="text" id="nombre" placeholder="¿Aceptarías?" required>
+        <button onclick="confirmarAsistencia()">Enviar</button>
+        <p id="respuesta" style="color: green; font-weight: bold;"></p>
+        <img id="imagenRespuesta" src="" alt="Respuesta">
+    </div>
+
+    <script>
+        function confirmarAsistencia() {
+            var nombre = document.getElementById('nombre').value.toLowerCase();
+            var mensaje = document.getElementById('respuesta');
+            var imagen = document.getElementById('imagenRespuesta');
+            var body = document.body;
+            var container = document.getElementById('container');
+
+            // Limpiar clases anteriores
+            mensaje.classList.remove('animacion-acepta', 'animacion-rechaza');
+            imagen.classList.remove('animacion-acepta', 'animacion-rechaza');
+            body.classList.remove('body-acepta', 'body-rechaza');
+            container.classList.remove('container-acepta', 'container-rechaza');
+
+            if (["acepto", "si", "claro"].includes(nombre)) {
+                mensaje.style.color = 'green';
+                mensaje.textContent = `¡Gracias por aceptar Dalita! Espero ese día con ansias :3 .`;
+                imagen.src = "https://play-lh.googleusercontent.com/1xja2rlBYxx464zli6R0CMrJp47s2syuKqbR6hCp3jaomo6COmiKQpU6gls4pZPeMfk";
+                
+                // Agregar animaciones de aceptación
+                mensaje.classList.add('animacion-acepta');
+                imagen.classList.add('animacion-acepta');
+                body.classList.add('body-acepta');
+                container.classList.add('container-acepta');
+            } else {
+                mensaje.style.color = 'red';
+                mensaje.textContent = "Por favor, di que sí :c";
+                imagen.src = "https://i.pinimg.com/originals/9a/a3/0b/9aa30b73c1a0fbdd04f121736ac36e34.jpg";
+                
+                // Agregar animaciones de rechazo
+                mensaje.classList.add('animacion-rechaza');
+                imagen.classList.add('animacion-rechaza');
+                body.classList.add('body-rechaza');
+                container.classList.add('container-rechaza');
+            }
+            imagen.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
